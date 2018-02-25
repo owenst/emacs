@@ -10,3 +10,5 @@ It's a good idea to set your editor, now:
 in .bash_profile add:
 export EDITOR=emacs
 
+See size of homedir:
+sudo du -m -d1 ~ | sort -nr
