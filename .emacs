@@ -6,11 +6,11 @@
 ;; Kill chain:   C-k, C-y, M-y	
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
-;; Help: C-h: help.
-;; Search: C-h a PATTERN: apropos search for PATTERN
+;; Help: C-h: help. C-h a PATTERN: apropos search for PATTERN
+;; Search under point: C-s . , C-r reverse search
 ;; Rectangle: C-x-SPACE select rectangle (rather than by line)
 ;; Indent: C-M-\
-;;   C-x-TAB (tab wth arrow keys or SHIFT + <- / ->)
+;;   C-x-SPACE to select rect then C-x-TAB (tab wth arrow keys or  < , >)
 ;;   M-i indent whitespace to tab stop
 ;; Repeat: C-u 4 : repeat the next command 4 times
 ;; Packages:
@@ -58,6 +58,12 @@
 
 ;; Font size: Use M-x customize-face RET default or:
 ;;;;;;;(set-face-attribute 'default nil :height 200)
+
+;; I hate tabs!
+;; to setup tabs
+(setq c-basic-indent 2)
+(setq tab-width 4)
+(setq indent-tabs-mode nil)
 
 ;;short yes and no
 (fset 'yes-or-no-p 'y-or-n-p)
