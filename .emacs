@@ -22,7 +22,7 @@
 ;;   Use arrows and RET; C-d to go to dired menu in folder
 ;;   Use M-s to search or M-d to go to dired for menu
 ;; 
-;; Emacs-List
+;; Emacs-Lisp
 ;;  Eval region: M-x eval-region
 ;;  Eval in mini-buffer M-:
 ;;  Eval at point C-x C-e
@@ -61,7 +61,8 @@
 
 ;; I hate tabs!
 ;; to setup tabs
-(setq c-basic-indent 2)
+(setq c-basic-indent 4)
+(setq-default c-basic-offset 4)
 (setq tab-width 4)
 (setq indent-tabs-mode nil)
 
