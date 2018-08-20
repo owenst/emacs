@@ -1,8 +1,8 @@
 #!/bin/sh
 git filter-branch --env-filter '
-OLD_EMAIL="164865+owenst@users.noreply.github.com"
-CORRECT_NAME="Trevor"
-CORRECT_EMAIL="trevor@airspace.co"
+OLD_EMAIL="OLD EMAIL"
+CORRECT_NAME="NAME"
+CORRECT_EMAIL="NEW EMAIL"
 if [ "$GIT_COMMITTER_EMAIL" = "$OLD_EMAIL" ]
 then
     export GIT_COMMITTER_NAME="$CORRECT_NAME"
