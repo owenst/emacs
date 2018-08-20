@@ -2,9 +2,9 @@
 This is an emacs file which can be used on linux or mac osx
 
 clone to ~ then in emacs/ run
+chmod +x configure.sh
 ./configure.sh
 which links everything and sources the aliases and bashrc
-
 you may have to remove the current .emacs file.
 
 # .bashrc
