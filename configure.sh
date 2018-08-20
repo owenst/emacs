@@ -8,5 +8,5 @@ source ../.bash_aliases
 source ../.bashrc
 
 #configure git
-git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
 git config credential.helper 'cache --timeout 300000'
