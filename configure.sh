@@ -1,10 +1,19 @@
 #!/bin/bash
 
+# function to link
+link(){
+    ln -s $1 ~/$1
+    source ~/$1
+    }
+
 # run and print commands
-set -x 
-ln -s .emacs ../.emacs
-ln -s .bash_aliases ../.bash_aliases
-source ../.bash_aliases
+set -x
+
+link .emacs
+link .bash_aliases
+link .bc
+cp -u .bash_profile ..
+source ../.bash_profile
 source ../.bashrc
 
 #configure git
@@ -22,3 +31,4 @@ git config -l
 git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
 git config credential.helper 'cache --timeout 300000'
 >>>>>>> e52aad0fa071f1619c0952607430b0e7d897a5d0
+
