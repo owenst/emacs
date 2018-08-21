@@ -17,7 +17,6 @@ source ../.bash_profile
 source ../.bashrc
 
 #configure git
-<<<<<<< HEAD
 git config user.name "owenst"
 git config user.email "164865+owenst@users.noreply.github.com"
 git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
