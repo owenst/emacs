@@ -27,8 +27,4 @@ echo ""
 echo "Printing git config"
 echo "------------------------------------------------------------------------------"
 git config -l
-=======
-git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
-git config credential.helper 'cache --timeout 300000'
->>>>>>> e52aad0fa071f1619c0952607430b0e7d897a5d0
 
