@@ -13,6 +13,7 @@
 ;;   C-x-SPACE to select rect then C-x-TAB (tab wth arrow keys or  < , >)
 ;;   M-i indent whitespace to tab stop
 ;; Repeat: C-u 4 : repeat the next command 4 times
+;; Revert Buffer when changed elsewhere: M-x revert-buffer 
 ;; Packages:
 ;;   M-x package-refresh-contents
 ;;   M-x package-install RET package_name RET
