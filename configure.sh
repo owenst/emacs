@@ -15,5 +15,5 @@ git config user.email "164865+owenst@users.noreply.github.com"
 git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
 git config credential.helper 'cache --timeout 300000'
 
-git config -l
+echo "run git config -l to see git config"
 
