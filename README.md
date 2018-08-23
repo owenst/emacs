@@ -37,22 +37,9 @@ you may have to remove the current .emacs file.
 
 ## remapping keys with xmodmap:
 * chmod +x swap_keys.sh
-* $ swap_keys.sh 1
-* $ swap_keys.sh 0    --- swaps to original configuration
+* $ ./swap_keys.sh to print usage
 * https://askubuntu.com/questions/296155/how-can-i-remap-keyboard-keys#296437
-* Run $ xev , then type key and get output
-* Press caps lock key and find line:
-  * keycode 66 (keysym 0xffe5, Caps_Lock)
-* Press alt key and find line:
-  * keycode 64 (keysym 0xffe9, Alt_L)
-* Now swap:
-  * xmodmap -e 'clear Lock'
-  * xmodmap -e "keysym Caps_Lock = Alt_L"
-  * OR
-    * xmodmap -e "keycode 66 = Alt_L"
-* Swap back:
-  * setxkbmap
-
+* You can run $ xev , then type key and get output
 
 # .bashrc
 in .bashrc or .bash_profile (<-only used at login) add:
