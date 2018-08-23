@@ -1,5 +1,8 @@
 alias dirs="dirs -v"
 
+#overwrite default ll alias:
+alias ll='ls -alhF'
+
 # git
 alias ggs="git status"
 alias ggc="git commit -m"
