@@ -40,6 +40,7 @@ you may have to remove the current .emacs file.
 * $ ./swap_keys.sh to print usage
 * https://askubuntu.com/questions/296155/how-can-i-remap-keyboard-keys#296437
 * You can run $ xev , then type key and get output
+* You can see current modifier and keycode settings using xmodmap -pm | -pke 
 
 # .bashrc
 in .bashrc or .bash_profile (<-only used at login) add:
