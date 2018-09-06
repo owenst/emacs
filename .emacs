@@ -32,10 +32,21 @@
 ;;(add-to-list 'package-archives
 ;;	     '("elpy" . "https://jorgenschaefer.github.io/packages/"))
 
+
+
+(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+                     ("marmalade" . "http://marmalade-repo.org/packages/")
+                     ("melpa" . "http://melpa.org/packages/")))
+
 (add-to-list 'package-archives
-             '("melpa-stable" . "https://stable.melpa.org/packages/") t)
+             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (package-initialize) ;; You might already have this line
+
+;; ------------------------------------------------------ ;;
+;;      Remove package signature check to prevent hang
+(setq package-check-signature nil)
+;; ------------------------------------------------------ ;;
 
 ;; ELPY
 ;(elpy-enable)

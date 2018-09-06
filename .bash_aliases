@@ -2,7 +2,7 @@ alias dirs="dirs -v"
 
 #overwrite default ll alias:
 alias ll='ls -alhF'
-alias op=xdg-open
+alias open=xdg-open
 
 # git
 alias ggs="git status"
