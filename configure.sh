@@ -7,6 +7,7 @@ ln -s ~/emacs/.emacs ~/.emacs
 ln -s ~/emacs/.bash_aliases ~/.bash_aliases
 ln -s ~/emacs/.bc ~/.bc
 echo 'set BC_ENV_ARGS=~/.bc; export BC_ENV_ARGS' >> ~/.bashrc
+echo 'export PATH=$PATH:/usr/bin/llvm-config' >> ~/.bashrc
 source ~/.bashrc
 
 #configure git

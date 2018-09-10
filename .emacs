@@ -62,6 +62,23 @@
 (add-to-list 'default-frame-alist '(height . 50))
 (add-to-list 'default-frame-alist '(width . 150))
 
+;; CMAKE-IDE
+;; (require 'rtags) ;; optional, must have rtags installed
+;; (cmake-ide-setup)
+;; (setq cmake-ide-flags-c++
+;;      "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include")
+;; (setq cmake-ide-build-dir "~/radar/")
+
+;; Multiple cursors
+;; NOTE: To get out of multiple-cursors-mode, press <return> or C-g. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use C-j
+(require 'multiple-cursors)
+(define-key mc/keymap (kbd "<return>") nil)
+(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+
 ;;Change meta key to super key (like windows key)
 ;;(setq x-super-keysym 'meta)
 

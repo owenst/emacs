@@ -10,6 +10,6 @@ alias ggc="git commit -m"
 alias gga="git add"
 alias ggd="git diff"
 
-
+alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
 
 
