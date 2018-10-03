@@ -6,8 +6,11 @@
 ln -s ~/emacs/.emacs ~/.emacs
 ln -s ~/emacs/.bash_aliases ~/.bash_aliases
 ln -s ~/emacs/.bc ~/.bc
+
+# These should only be run once:
 echo 'set BC_ENV_ARGS=~/.bc; export BC_ENV_ARGS' >> ~/.bashrc
 echo 'export PATH=$PATH:/usr/bin/llvm-config' >> ~/.bashrc
+echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 source ~/.bashrc
 
 #configure git
