@@ -28,18 +28,16 @@
 ;;  Eval in mini-buffer M-:
 ;;  Eval at point C-x C-e
 
-(require 'package) ;; You might already have this line
-;;(add-to-list 'package-archives
-;;	     '("elpy" . "https://jorgenschaefer.github.io/packages/"))
+(require 'package) 
 
-
-
-(setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-                     ("marmalade" . "http://marmalade-repo.org/packages/")
-                     ("melpa" . "http://melpa.org/packages/")))
+;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
+;;                      ("marmalade" . "http://marmalade-repo.org/packages/")
+;;                      )
+;;       )
 
 (add-to-list 'package-archives
-             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/")	     t)
+;;             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 
 (package-initialize) ;; You might already have this line
 
@@ -48,12 +46,20 @@
 (setq package-check-signature nil)
 ;; ------------------------------------------------------ ;;
 
+
+;; Bootstrap `use-package'
+(unless (package-installed-p 'use-package)
+(package-refresh-contents)
+(package-install 'use-package))
+
 ;; ELPY
 ;(elpy-enable)
 
 ;;Use ido: interactively do things:
-(require 'ido)
-(ido-mode t)
+(use-package ido
+  :config
+  (ido-mode t)
+  )
 
 ;;Save state of emacs:
 (desktop-save-mode 1)
@@ -71,14 +77,16 @@
 
 ;; Multiple cursors
 ;; NOTE: To get out of multiple-cursors-mode, press <return> or C-g. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use C-j
-(require 'multiple-cursors)
-(define-key mc/keymap (kbd "<return>") nil)
-(global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-(global-set-key (kbd "C->") 'mc/mark-next-like-this)
-(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-(global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-
+(use-package multiple-cursors
+	     :config
+	     (define-key mc/keymap (kbd "<return>") nil)
+	     ;; Exit multiple-cursors Ctrl-g
+	     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+	     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+	     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+	     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+	     (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+	     )
 ;;Change meta key to super key (like windows key)
 ;;(setq x-super-keysym 'meta)
 
@@ -169,7 +177,7 @@
  '(custom-enabled-themes (quote (manoj-dark)))
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
- '(package-selected-packages (quote (cmake-ide minimap go-mode elpy))))
+ '(package-selected-packages (quote (multiple-cursors cmake-ide minimap go-mode elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
