@@ -1,20 +1,49 @@
-;; Trevors .emacs file 2018-02-15
+;; Trevors .emacs file 2018-10-02
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
 ;; Move:   C-f, C-b, C-a, C-e
-;; Move:   M-f, M-b, M-a, M-e
-;; Kill chain:   C-k, C-y, M-y	
+;;         M-f, M-b, M-a, M-e
+;; Kill chain:   C-k, C-y, M-y
+;; Undo: C-/ or C-x u
+;; GoTo Line: M-g M-g LIN
+;; Repeat: C-u 4 : repeat the next command 4 timse
+;; Comment M-; (on selected region)
+
+;; Indent:
+;;   C-x-TAB (tab wth arrow keys or  < , >);
+;;   C-M-\  indent region
+;;   M-i indent whitespace to tab stop
+;;   Rectangle: C-x-SPACE select rectangle (rather than by line)
+;; Justify: M-x-fill-paragraph OR M-q
+;;   Set margin with C-x f NUMBER
+
+;; Searching
+;;   Find and Replace: M-$
+;;   Search under point: C-s C-w, C-s . , C-r reverse search
+
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
-;; Help: C-h: help. C-h a PATTERN: apropos search for PATTERN
-;; Search under point: C-s . , C-r reverse search
-;; Rectangle: C-x-SPACE select rectangle (rather than by line)
-;; Indent: C-M-\
-;;   C-x-SPACE to select rect then C-x-TAB (tab wth arrow keys or  < , >)
-;;   M-i indent whitespace to tab stop
-;; Repeat: C-u 4 : repeat the next command 4 times
-;; Revert Buffer when changed elsewhere: M-x revert-buffer 
+
+;; Help:
+;;    C-h ?
+;;    C-h: help. C-h a PATTERN: apropos search for PATTERN
+;;    C-h k KEYSTROKE: describes keystroke
+;;    C-h m  :  help on current mode
+;;    View faces under point: C-u C-x =
+
+
+;; Files
+;;   Save modified: C-x-s
+;;   Autosave: #filename. Recover: M-x recover-file
+;;   Revert Buffer when changed elsewhere: M-x revert-buffer 
+
+;; Windows
+;;   Switch: C-x-o
+;;   Split Vertical C-x-3
+;;   Split Horizontal C-x-2
+;;   Remove New Window C-x-0
+
 ;; Packages:
 ;;   M-x package-refresh-contents
 ;;   M-x package-install RET package_name RET
@@ -23,7 +52,8 @@
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
 ;;   Use arrows and RET; C-d to go to dired menu in folder
 ;;   Use M-s to search or M-d to go to dired for menu
-;; 
+;; Multiple-cursors: see below for commands
+
 ;; Emacs-Lisp
 ;;  Eval region: M-x eval-region
 ;;  Eval in mini-buffer M-:
@@ -167,21 +197,16 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- ;;'(ansi-color-faces-vector
- ;;  [default default default italic underline success warning error])
- ;;'(ansi-color-names-vector
- ;;  ["#242424" "#e5786d" "#95e454" "#cae682" "#8ac6f2" "#333366" "#ccaa8f" "#f6f3e8"])
- '(blink-cursor-mode nil)
+ '(blink-cursor-mode t)
  '(column-number-mode t)
- '(custom-enabled-themes (quote (deeper-blue)))
+ '(custom-enabled-themes (quote (manoj-dark)))
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
- '(package-selected-packages (quote (cmake-ide minimap go-mode elpy)))
+ '(package-selected-packages (quote (multiple-cursors cmake-ide minimap go-mode elpy)))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tool-bar-mode -1))
- '(package-selected-packages (quote (multiple-cursors cmake-ide minimap go-mode elpy))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
