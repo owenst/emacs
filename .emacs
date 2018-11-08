@@ -67,8 +67,8 @@
 ;;       )
 
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/")	     t)
-;;             '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+	     '("melpa" . "http://melpa.org/packages/")
+             '("melpa-stable" . "http://stable.melpa.org/packages/"))
 
 (package-initialize) ;; You might already have this line
 
@@ -84,7 +84,10 @@
 (package-install 'use-package))
 
 ;; ELPY
-(elpy-enable)
+(use-package elpy
+  :config
+  (elpy-enable)
+  )
 
 ;;Use ido: interactively do things:
 (use-package ido
