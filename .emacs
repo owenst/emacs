@@ -31,6 +31,7 @@
 ;;    C-h k KEYSTROKE: describes keystroke
 ;;    C-h m  :  help on current mode
 ;;    View faces under point: C-u C-x =
+;;    C-h v load-path : view info on load path
 
 
 ;; Files
@@ -47,6 +48,7 @@
 ;; Packages:
 ;;   M-x package-refresh-contents
 ;;   M-x package-install RET package_name RET
+;;   C-h v load-path if not finding a package
 ;; IMPORTANT PACKAGES:
 ;; IDO: Interactively do things
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
@@ -103,11 +105,12 @@
 (add-to-list 'default-frame-alist '(width . 150))
 
 ;; CMAKE-IDE
-;; (require 'rtags) ;; optional, must have rtags installed
-;; (cmake-ide-setup)
+
+;;(require 'rtags) ;; optional, must have rtags installed
+;;(cmake-ide-setup)
 ;; (setq cmake-ide-flags-c++
 ;;      "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include")
-;; (setq cmake-ide-build-dir "~/radar/")
+;;(setq cmake-ide-build-dir "~/radar/")
 
 ;; Multiple cursors
 ;; NOTE: To get out of multiple-cursors-mode, press <return> or C-g. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use C-j
