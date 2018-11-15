@@ -19,8 +19,13 @@
 ;;   Set margin with C-x f NUMBER
 
 ;; Searching
-;;   Find and Replace: M-$
+;;   Find and Replace: M-%
+;;     Then y: replace, n: no, q: exit, !:replace all
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
+;;     Use next or previous search in search history C-s M-n [M-p]
+;; Searching Directories: M-x dired
+;; Grep:
+;; M-x grep. Then use as rgrep from the top directory to search recursively
 
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
@@ -79,8 +84,10 @@
 (setq package-check-signature nil)
 ;; ------------------------------------------------------ ;;
 
-
+(eval-when-compile
+  (require 'use-package))
 ;; Bootstrap `use-package'
+;; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
 (package-refresh-contents)
 (package-install 'use-package))
@@ -95,6 +102,7 @@
 (use-package ido
   :config
   (ido-mode t)
+  :ensure t
   )
 
 ;;Save state of emacs:
@@ -105,12 +113,40 @@
 (add-to-list 'default-frame-alist '(width . 150))
 
 ;; CMAKE-IDE
+;; Use .dir-locals.el in main folder to set cmake-ide-build-dir:
+;; ((nil
+;;  (cmake-ide-build-dir . "~/code/onboard/build")))
 
+(add-to-list 'load-path "~/.emacs.d/rtags/src/")
+(use-package rtags)
 ;;(require 'rtags) ;; optional, must have rtags installed
-;;(cmake-ide-setup)
-;; (setq cmake-ide-flags-c++
-;;      "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include")
-;;(setq cmake-ide-build-dir "~/radar/")
+(use-package flycheck)
+(use-package auto-complete-clang)
+(use-package irony
+  :config
+  (add-hook 'c++-mode-hook 'irony-mode)
+  (add-hook 'c-mode-hook 'irony-mode)
+  (add-hook 'objc-mode-hook 'irony-mode)
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  
+  )
+
+(use-package company-irony)
+(use-package yasnippet
+  :config
+  (yas-global-mode 1)
+  )
+(use-package cmake-ide
+  :requires (rtags)
+  :config
+  (cmake-ide-setup)
+  (setq cmake-ide-rdm-executable "~/.emacs.d/rtags/bin/rdm")
+  (setq cmake-ide-rc-executable "~/.emacs.d/rtags/bin/rc")
+  (setq cmake-ide-flags-c++
+	"/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include")  
+  )
+
+
 
 ;; Multiple cursors
 ;; NOTE: To get out of multiple-cursors-mode, press <return> or C-g. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use C-j
