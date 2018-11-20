@@ -23,12 +23,13 @@
 ;;     Then y: replace, n: no, q: exit, !:replace all
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
 ;;     Use next or previous search in search history C-s M-n [M-p]
-;; Searching Directories: M-x dired
+;;  Searching Directories: M-x dired
 ;; Grep:
-;; M-x grep. Then use as rgrep from the top directory to search recursively
+;;   M-x grep. Can use as rgrep to search recursively
 
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
+;;   C-x k to kill current buffer (removes)
 
 ;; Help:
 ;;    C-h ?
@@ -60,6 +61,8 @@
 ;;   Use arrows and RET; C-d to go to dired menu in folder
 ;;   Use M-s to search or M-d to go to dired for menu
 ;; Multiple-cursors: see below for commands
+;;   C-> to get new cursor
+;;   C-g to quit
 
 ;; Emacs-Lisp
 ;;  Eval region: M-x eval-region
@@ -91,6 +94,9 @@
 (unless (package-installed-p 'use-package)
 (package-refresh-contents)
 (package-install 'use-package))
+
+;; Print stack trace on error
+(setq debug-on-error t)
 
 ;; ELPY
 (use-package elpy
@@ -136,15 +142,21 @@
   :config
   (yas-global-mode 1)
   )
-(use-package cmake-ide
-  :requires (rtags)
-  :config
-  (cmake-ide-setup)
-  (setq cmake-ide-rdm-executable "~/.emacs.d/rtags/bin/rdm")
-  (setq cmake-ide-rc-executable "~/.emacs.d/rtags/bin/rc")
-  (setq cmake-ide-flags-c++
-	"/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include")  
-  )
+;; (use-package cmake-ide
+;;   :requires (rtags)
+;;   :config
+;;   (cmake-ide-setup)
+;;   (setq cmake-ide-rdm-executable "~/.emacs.d/rtags/bin/rdm")
+;;   (setq cmake-ide-rc-executable "~/.emacs.d/rtags/bin/rc")
+;;   (cond    ; Switch on OS
+;;    ((string-equal system-type "darwin") ; Mac OS X
+;;     (setq cmake-ide-flags-c++
+;; 	  "/usr/local/include:/Library/Developer/CommandLineTools/usr/include/c++/v1:/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include:/Library/Developer/CommandLineTools/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"))
+;;    ((string-equal system-type "gnu/linux") ; linux
+;;     (setq cmake-ide-flags-c++
+;; 	  "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include"))
+;;    )	
+;;   )
 
 
 
@@ -245,7 +257,11 @@
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
- '(package-selected-packages (quote (multiple-cursors cmake-ide minimap go-mode elpy)))
+ '(package-selected-packages
+   (quote
+    (cmake-mode ## company-irony irony auto-complete-clang flycheck rtags multiple-cursors cmake-ide minimap go-mode elpy)))
+ '(reb-re-syntax (quote string))
+ '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
  '(show-paren-mode t)
  '(tool-bar-mode -1))
