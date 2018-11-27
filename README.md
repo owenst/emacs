@@ -55,6 +55,12 @@ Then use
 * $ pushd ../path/to/new/dir
 * $ cd ~3 -> takes you to the directory at index 3 in stack
 
+### Mac
+To use .bashrc in Mac, in .bash_profile add:
+if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+
 
 See size of homedir:
 sudo du -m -d1 ~ | sort -nr
