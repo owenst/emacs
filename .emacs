@@ -96,7 +96,7 @@
 (package-install 'use-package))
 
 ;; Print stack trace on error
-(setq debug-on-error t)
+;(setq debug-on-error t)
 
 ;; ELPY
 (use-package elpy
