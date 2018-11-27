@@ -1,13 +1,34 @@
 # emacs
 This is an emacs file which can be used on linux or mac osx
 
-clone to ~ then in emacs/ run
-chmod +x configure.sh
-./configure.sh
-which links .emacs and .bash_aliases and sources the aliases and bashrc
-you may have to remove the current .emacs file.
+* clone to ~ then in emacs/ run
+* chmod +x configure.sh
+* ./configure.sh
+* which links .emacs and .bash_aliases and sources the aliases and bashrc
+* you may have to remove the current .emacs or other files
+
+## Packages:
+### Installation
+  * M-x package-refresh-contents
+  * M-x package-install RET package_name RET
+### Good ones:
+* markdown-mode+ 
+* markdown-mode 
+* cmake-mode 
+* cmake-ide 
+* company-irony 
+* irony 
+* auto-complete-clang 
+* flycheck 
+* rtags 
+* multiple-cursors 
+* minimap 
+* go-mode 
+* elpy
+
 
 ##  Notes:
+
 * Move:   C-f, C-b, C-a, C-e
 * Move:   M-f, M-b, M-a, M-e
 * Kill chain:   C-k, C-y, M-y	
@@ -21,9 +42,6 @@ you may have to remove the current .emacs file.
   * M-i indent whitespace to tab stop
 * Repeat: C-u 4 : repeat the next command 4 times
 * Revert Buffer when changed elsewhere: M-x revert-buffer 
-* Packages:
-  * M-x package-refresh-contents
-  * M-x package-install RET package_name RET
 * IMPORTANT PACKAGES:
 * IDO: Interactively do things
   * Helps searching for files and through buffers (C-x C-f and C-x b)
@@ -43,13 +61,13 @@ you may have to remove the current .emacs file.
 * You can see current modifier and keycode settings using xmodmap -pm | -pke 
 
 # .bashrc
-in .bashrc or .bash_profile (<-only used at login) add:
-
-export VISUAL=nano  #super fast for commits
-export EDITOR="$VISUAL"
+* in .bashrc or .bash_profile (<-only used at login) add:
+* `export VISUAL=nano  #super fast for commits`
+* `export EDITOR="$VISUAL"`
 
 ### Mac
-To use .bashrc in Mac, in .bash_profile add:
+* This was added to configure file:
+* To use .bashrc in Mac, in .bash_profile add:
 ```
 if [ -f ~/.bashrc ]; then
    source ~/.bashrc
@@ -62,24 +80,23 @@ if [ -f ~/.bash_aliases ]; then
 fi
 ```
 ## Notes on shell:
-in .bashrc or .bash_aliases:
-alias dirs="dirs -v"
-Then use
-* $ pushd ../path/to/new/dir
-* $ cd ~3 -> takes you to the directory at index 3 in stack
+* in .bashrc or .bash_aliases:
+* alias dirs="dirs -v"
+* Then use
+  * $ pushd ../path/to/new/dir
+  * $ cd ~3 -> takes you to the directory at index 3 in stack
+* To remove alias: `unalias dirs`
 
 
-
-
-See size of homedir:
-sudo du -m -d1 ~ | sort -nr
+* See size of homedir:
+* sudo du -m -d1 ~ | sort -nr
 
 ## Notes on git:
-nice git log graph:
-git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"
+* nice git log graph:
+* `git config --global alias.hist "log --pretty=format:'%h %ad | %s%d [%an]' --graph --date=short"`
 
-save credentials for 3 days:
-git config credential.helper 'cache --timeout 300000'
+* save credentials for 3 days:
+* `git config credential.helper 'cache --timeout 300000'`
 
-Change author:
-see git_fix_author.sh script -> modify to fix commit author
+* Change author:
+* see `git_fix_author.sh` script -> modify to fix commit author
