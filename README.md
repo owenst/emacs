@@ -65,7 +65,7 @@ This is an emacs file which can be used on linux or mac osx
 * `export VISUAL=nano  #super fast for commits`
 * `export EDITOR="$VISUAL"`
 
-### Mac
+## Mac
 * This was added to configure file:
 * To use .bashrc in Mac, in .bash_profile add:
 ```
@@ -73,12 +73,16 @@ if [ -f ~/.bashrc ]; then
    source ~/.bashrc
 fi
 ```
-To use .bash_aliases:
+* To use .bash_aliases:
 ```
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
 ```
+* To use Alt/Option as Meta key: 
+  * In terminal->preferences
+  * Under profile->keyboard: scroll to bottom and click Use Option as Meta
+  
 ## Notes on shell:
 * in .bashrc or .bash_aliases:
 * alias dirs="dirs -v"
