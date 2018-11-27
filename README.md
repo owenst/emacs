@@ -48,6 +48,19 @@ in .bashrc or .bash_profile (<-only used at login) add:
 export VISUAL=nano  #super fast for commits
 export EDITOR="$VISUAL"
 
+### Mac
+To use .bashrc in Mac, in .bash_profile add:
+```
+if [ -f ~/.bashrc ]; then
+   source ~/.bashrc
+fi
+```
+To use .bash_aliases:
+```
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
+fi
+```
 ## Notes on shell:
 in .bashrc or .bash_aliases:
 alias dirs="dirs -v"
@@ -55,11 +68,7 @@ Then use
 * $ pushd ../path/to/new/dir
 * $ cd ~3 -> takes you to the directory at index 3 in stack
 
-### Mac
-To use .bashrc in Mac, in .bash_profile add:
-if [ -f ~/.bashrc ]; then
-   source ~/.bashrc
-fi
+
 
 
 See size of homedir:
