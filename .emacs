@@ -259,7 +259,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (cmake-mode ## company-irony irony auto-complete-clang flycheck rtags multiple-cursors cmake-ide minimap go-mode elpy)))
+    (markdown-mode+ markdown-mode cmake-mode ## company-irony irony auto-complete-clang flycheck rtags multiple-cursors cmake-ide minimap go-mode elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
