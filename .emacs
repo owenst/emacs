@@ -4,11 +4,29 @@
 ;; Change Font Size: C-x C-+/C--
 ;; Move:   C-f, C-b, C-a, C-e
 ;;         M-f, M-b, M-a, M-e
+;;         C-M-n C-M-p by s-exp or balanced expression
+;;         C-M-v scroll other buffer
+;;         M-m move to beginning of indented region
 ;; Kill chain:   C-k, C-y, M-y
 ;; Undo: C-/ or C-x u
-;; GoTo Line: M-g M-g LIN
+;; GoTo Line: M-g g LINE or M-g M-g LINE
 ;; Repeat: C-u 4 : repeat the next command 4 timse
 ;; Comment M-; (on selected region)
+
+;; Marks, Points
+;;  C-SPC set mark
+;;  C-SPC C-SPC set mark but deactivate region
+;;  C-u C-SPC pop mark
+;;  C-x C-x toggle between point and mark
+;;  DEPRECATED (see below) C-u C-x C-x don't activate region
+;;  M-r jump point around without scrolling
+;;   Registers:
+;;     C-x r SPC : save location to register
+;;     C-x r j   : jump to register location
+;;   Bookmarks : save between sessions
+;;     C-x r m  : make
+;;     C-x r b  : back to bookmark
+;;     C-x r l  : list bookmarks
 
 ;; Indent:
 ;;   C-x-TAB (tab wth arrow keys or  < , >);
@@ -22,7 +40,8 @@
 ;;   Find and Replace: M-%
 ;;     Then y: replace, n: no, q: exit, !:replace all
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
-;;     Use next or previous search in search history C-s M-n [M-p]
+;;     C-s M-n [M-p] Use next or previous search in search history
+;;     C-s C-s Repeat search
 ;;  Searching Directories: M-x dired
 ;; Grep:
 ;;   M-x grep. Can use as rgrep to search recursively
@@ -33,11 +52,13 @@
 
 ;; Help:
 ;;    C-h ?
-;;    C-h: help. C-h a PATTERN: apropos search for PATTERN
+;;    C-h C-h help with function, like iSearch
+;;    C-h: help.
+;;    C-h a PATTERN: apropos search for PATTERN
 ;;    C-h k KEYSTROKE: describes keystroke
 ;;    C-h m  :  help on current mode
 ;;    View faces under point: C-u C-x =
-;;    C-h v load-path : view info on load path
+;;    C-h v load-path : view info on load path - C-h v is describe variable
 
 
 ;; Files
@@ -55,19 +76,46 @@
 ;;   M-x package-refresh-contents
 ;;   M-x package-install RET package_name RET
 ;;   C-h v load-path if not finding a package
+
 ;; IMPORTANT PACKAGES:
+
 ;; IDO: Interactively do things
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
+;;     C-f to stop flex searching for files
 ;;   Use arrows and RET; C-d to go to dired menu in folder
 ;;   Use M-s to search or M-d to go to dired for menu
+
 ;; Multiple-cursors: see below for commands
 ;;   C-> to get new cursor
 ;;   C-g to quit
+
+;; use-package: only load package if already installed
+;;   https://github.com/jwiegley/use-package
+;;   :init   set variables before loading (setq variable nil)
+;;   :config   set after loading (change a mode)
+;;   :bind ("C-." . ace-jump-mode)
+
+;; recentf: load recently used files
+;;   C-x C-r : defined below to use IDO style file searching - WORKS!
 
 ;; Emacs-Lisp
 ;;  Eval region: M-x eval-region
 ;;  Eval in mini-buffer M-:
 ;;  Eval at point C-x C-e
+
+;; Modes
+;;  M-x [global-]linum-mode : add line numbers [globally]
+;;  M-x c++-mode
+
+;; Terminal
+;;   M-x term
+;;   M-x ansi-term
+;; Web browser
+;;   M-x eww
+
+;; -----------------------------------------------------------------;;
+;; -------------------------   END  --------------------------------;;
+;; -----------------------------------------------------------------;;
 
 (require 'package) 
 
@@ -86,6 +134,19 @@
 ;;      Remove package signature check to prevent hang
 (setq package-check-signature nil)
 ;; ------------------------------------------------------ ;;
+
+
+;; This defines C-x C-x to not activate region when exchanging the
+;; point and mark So you can use C-SPC C-SPC to set mark deactivate
+;; region and then move around then jump back without selecting a
+;; region
+;; https://masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun exchange-point-and-mark-no-activate ()
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
 
 (eval-when-compile
   (require 'use-package))
@@ -106,9 +167,30 @@
 
 ;;Use ido: interactively do things:
 (use-package ido
+  :init
+  (setq ido-enable-flex-matching t)
+  (setq ido-everywhere t)
   :config
-  (ido-mode t)
+  (ido-mode t)  
   :ensure t
+  )
+
+;; From mastering emacs find recent files
+;; 
+(use-package recentf
+  :init
+  (require 'ido)
+  (setq recentf-max-saved-items 50)
+  (defun ido-recentf-open ()
+    "Use `ido-completing-read' to \\[find-file] a recent file"
+    (interactive)
+    (if (find-file (ido-completing-read "Find recent file: " recentf-list))
+	(message "Opening file...")
+      (message "Aborting")))
+  (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
+  :config
+  (recentf-mode t)
+
   )
 
 ;;Save state of emacs:
@@ -251,9 +333,11 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(ansi-color-faces-vector
+   [default default default italic underline success warning error])
  '(blink-cursor-mode t)
  '(column-number-mode t)
- '(custom-enabled-themes (quote (manoj-dark)))
+ '(custom-enabled-themes (quote (wombat)))
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
@@ -263,8 +347,9 @@
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
+ '(scroll-bar-mode nil)
  '(show-paren-mode t)
- '(tool-bar-mode -1))
+ '(tool-bar-mode nil))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
