@@ -10,7 +10,9 @@
 ;; Kill chain:   C-k, C-y, M-y
 ;; Undo: C-/ or C-x u
 ;; GoTo Line: M-g g LINE or M-g M-g LINE
-;; Repeat: C-u 4 : repeat the next command 4 timse
+;; Repeat:
+;;   C-u 4 : repeat the next command 4 times
+;;   ESC-4 : repeat the next command 4 times     
 ;; Comment M-; (on selected region)
 
 ;; Marks, Points
@@ -35,6 +37,15 @@
 ;;   Rectangle: C-x-SPACE select rectangle (rather than by line)
 ;; Justify: M-x-fill-paragraph OR M-q
 ;;   Set margin with C-x f NUMBER
+;; Whitespace: M-x fixup-whitespace
+;;   Removes excess whitespace from end of line
+
+;; Keyboard Macros:
+;;   Define: C-x (
+;;     Do Stuff
+;;   End:    C-x )
+;;   Run Macro: C-x e
+;;   Now use ESC-500 + CMD to repeat 500 times
 
 ;; Searching
 ;;   Find and Replace: M-%
