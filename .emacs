@@ -1,5 +1,8 @@
 ;; Trevors .emacs file 2018-10-02
 
+;; TODO:
+;; 1) set code completion to use 0 characters
+
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
 ;; Move:   C-f, C-b, C-a, C-e
@@ -10,6 +13,7 @@
 ;; Kill chain:   C-k, C-y, M-y
 ;; Undo: C-/ or C-x u
 ;; GoTo Line: M-g g LINE or M-g M-g LINE
+;;      Char M-x goto-char
 ;; Repeat:
 ;;   C-u 4 : repeat the next command 4 times
 ;;   ESC-4 : repeat the next command 4 times     
@@ -77,24 +81,32 @@
 ;;   Autosave: #filename. Recover: M-x recover-file
 ;;   Revert Buffer when changed elsewhere: M-x revert-buffer 
 
-;; Windows
+;; Windows / Buffer
 ;;   Switch: C-x-o
 ;;   Split Vertical C-x-3
 ;;   Split Horizontal C-x-2
 ;;   Remove New Window C-x-0
+;;   Toggle single window C-x-1 : from zygospore!!!
 
 ;; Packages:
 ;;   M-x package-refresh-contents
 ;;   M-x package-install RET package_name RET
 ;;   C-h v load-path if not finding a package
 
-;; IMPORTANT PACKAGES:
+
+;; -----------------------------------------------------------------;;
+;; ------------------   IMPORTANT PACKAGES:   ----------------------;;
+;; -----------------------------------------------------------------;;
+
+
 
 ;; IDO: Interactively do things
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
 ;;     C-f to stop flex searching for files
 ;;   Use arrows and RET; C-d to go to dired menu in folder
 ;;   Use M-s to search or M-d to go to dired for menu
+;;
+;;   Now uses flx-ido to create fuzzy matching
 
 ;; Multiple-cursors: see below for commands
 ;;   C-> to get new cursor
@@ -118,57 +130,77 @@
 ;;  M-x [global-]linum-mode : add line numbers [globally]
 ;;  M-x c++-mode
 
-;; Terminal
+;; Terminal / Shell
 ;;   M-x term
 ;;   M-x ansi-term
 ;; Web browser
 ;;   M-x eww
 
+;; Projectile
+;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
+;;   replace in project
+;;   multi-occur in project buffers
+;;   grep in project
+
+;; Zygospore
+;;   Toggle C-x-1 : window open close
+
+;; Company
+
+;; Irony
+
+;; Company-Irony
+
+;; Yasnippet
+
+;; rtags
+
+;; flycheck
+
+;; auto-complete-clang
+
 ;; -----------------------------------------------------------------;;
-;; -------------------------   END  --------------------------------;;
+;; -------------------------   END   -------------------------------;;
 ;; -----------------------------------------------------------------;;
+
+
+
+;; -----------------------------------------------------------------;;
+;; -----------------------   PACKAGES   ----------------------------;;
+;; -----------------------------------------------------------------;;
+
 
 (require 'package) 
 
-;; (setq package-archives '(("gnu" . "http://elpa.gnu.org/packages/")
-;;                      ("marmalade" . "http://marmalade-repo.org/packages/")
-;;                      )
-;;       )
-
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/")
-             '("melpa-stable" . "http://stable.melpa.org/packages/"))
-
+	     '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize) ;; You might already have this line
-
+(when (not package-archive-contents)
+    (package-refresh-contents))
 ;; ------------------------------------------------------ ;;
 ;;      Remove package signature check to prevent hang
 (setq package-check-signature nil)
 ;; ------------------------------------------------------ ;;
 
 
-;; This defines C-x C-x to not activate region when exchanging the
-;; point and mark So you can use C-SPC C-SPC to set mark deactivate
-;; region and then move around then jump back without selecting a
-;; region
-;; https://masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
-(defun exchange-point-and-mark-no-activate ()
-  "Identical to \\[exchange-point-and-mark] but will not activate the region."
-  (interactive)
-  (exchange-point-and-mark)
-  (deactivate-mark nil))
-(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
-
+;; Bootstrap use-package
 (eval-when-compile
   (require 'use-package))
+
 ;; Bootstrap `use-package'
 ;; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
-(package-refresh-contents)
 (package-install 'use-package))
 
+(require 'use-package)
+(setq use-package-always-ensure t)
+
+;;-----------------------------
 ;; Print stack trace on error
-;(setq debug-on-error t)
+;; (setq debug-on-error t)
+;;-----------------------------
+
+
 
 ;; ELPY
 (use-package elpy
@@ -176,17 +208,34 @@
   (elpy-enable)
   )
 
-;;Use ido: interactively do things:
+;; IDO: interactively do things:
+;;(setq ido-everywhere t)
 (use-package ido
   :init
   (setq ido-enable-flex-matching t)
-  (setq ido-everywhere t)
   :config
   (ido-mode t)  
   :ensure t
   )
 
-;; From mastering emacs find recent files
+;; FLX-IDO: fuzzy matching for ido
+;;   It is suggested to add fly-ido to make projectile matching fuzzy
+;;   https://github.com/lewang/flx
+(use-package flx-ido
+  :ensure t
+  )
+;; Now make ido work with flx's fuzzy matching:
+(require 'flx-ido)
+(ido-mode 1)
+;;(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+
+
+
+;; recentf   From mastering emacs find recent files
 ;; 
 (use-package recentf
   :init
@@ -201,15 +250,50 @@
   (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
   :config
   (recentf-mode t)
-
+  :ensure t
   )
 
-;;Save state of emacs:
-(desktop-save-mode 1)
 
-;; initial frame size:
-(add-to-list 'default-frame-alist '(height . 50))
-(add-to-list 'default-frame-alist '(width . 150))
+;;  Zygospore
+;; Reverts C-x-1 to bring back killed window https://github.com/LouisKottmann/zygospore.el
+(use-package zygospore
+  :bind (("C-x 1" . zygospore-toggle-delete-other-windows)
+         ("RET" .   newline-and-indent)) 
+					; automatically indent when press RET
+  :ensure t
+  )
+
+;; (use-package zygospore
+;;   :config
+;;   (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
+;;   :ensure t
+;;   )
+
+
+;; Company
+(use-package company
+  :init
+  (global-company-mode 1)
+  (delete 'company-semantic company-backends))
+;; (define-key c-mode-map  [(control tab)] 'company-complete)
+;; (define-key c++-mode-map  [(control tab)] 'company-complete)
+
+
+;; Projectile
+;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
+;;   replace in project
+;;   multi-occur in project buffers
+;;   grep in project
+(use-package projectile
+  :init
+  (projectile-global-mode)
+  (setq projectile-enable-caching t)
+  (setq projectile-project-search-path '("~/code/"))
+  :ensure t
+  )
+
+
+
 
 ;; CMAKE-IDE
 ;; Use .dir-locals.el in main folder to set cmake-ide-build-dir:
@@ -218,23 +302,35 @@
 
 (add-to-list 'load-path "~/.emacs.d/rtags/src/")
 (use-package rtags)
-;;(require 'rtags) ;; optional, must have rtags installed
 (use-package flycheck)
 (use-package auto-complete-clang)
+
+;; Irony
 (use-package irony
   :config
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  
+  :ensure t
   )
 
-(use-package company-irony)
+;; Company-irony
+(use-package company-irony
+  :ensure t
+  )
+
+;; Yasnippet
 (use-package yasnippet
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
   :config
   (yas-global-mode 1)
+  :ensure t
   )
+
+
 ;; (use-package cmake-ide
 ;;   :requires (rtags)
 ;;   :config
@@ -264,7 +360,77 @@
 	     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
 	     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
 	     (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+	     :ensure t
 	     )
+
+
+;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html#orgheadline0
+;; Adding in setup lisp scripts 
+(add-to-list 'load-path "~/.emacs.d/custom")
+(if (version< emacs-version "24.4")
+    (require 'setup-ivy-counsel)) ;; -> can't install counsel or cousel-projectile. Helm should be fine.
+(require 'setup-helm)
+(require 'setup-helm-gtags)
+(require 'setup-cedet)
+(require 'setup-editing)
+;; (require 'setup-ggtags)
+
+
+
+;; -----------------------------------------------------------------;;
+;; -------------------------   END   -------------------------------;;
+;; -----------------------------------------------------------------;;
+
+
+
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
+;; ---------------------   EMACS SETUP   ---------------------------;;
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
+
+
+;;Save state of emacs:
+(desktop-save-mode 1)
+
+;; initial frame size:
+(add-to-list 'default-frame-alist '(height . 50))
+(add-to-list 'default-frame-alist '(width . 150))
+
+;; use space to indent by default
+(setq-default indent-tabs-mode nil)
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
+
+
+
+
+
+;; Garbage collection default 800kb
+;;   If you notice freezing: http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(setq gc-cons-threshold 100000000)
+
+(setq inhibit-startup-message t)
+
+
+
+
+
+;; Compilation - set f5 to call compile automatically
+(global-set-key (kbd "<f5>") (lambda ()
+                               (interactive)
+                               (setq-local compilation-read-command nil)
+                               (call-interactively 'compile)))
+
+
+;; setup GDB
+(setq
+ ;; use gdb-many-windows by default
+ gdb-many-windows t
+
+ ;; Non-nil means display source file containing the main routine at startup
+ gdb-show-main t
+ )
 
 ;; Insertion of Dates.
 (defun insert-date-string ()
@@ -284,6 +450,42 @@
 			(awk-mode . "awk")
 			(other . "stroustrup")))
 
+
+
+;; This defines C-x C-x to not activate region when exchanging the
+;; point and mark So you can use C-SPC C-SPC to set mark deactivate
+;; region and then move around then jump back without selecting a
+;; region
+;; https://masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun exchange-point-and-mark-no-activate ()
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+
+;;Change meta key to super key (like windows key)
+;;(setq x-super-keysym 'meta)
+
+
+;;short yes and no
+(fset 'yes-or-no-p 'y-or-n-p)
+;;Add column numbers
+(setq column-number-mode t)
+;;Add line numbers
+(setq line-number-mode t)
+;;Disable upper and lower case region
+(put 'upcase-region 'disabled t)
+(put 'downcase-region 'disabled t)
+;; erase the contents of a buffer
+(put 'erase-buffer 'disabled nil)
+;; Visual feedback on selections
+(setq-default transient-mark-mode t)
+;; Always end a file with a newline
+(setq require-final-newline t)
+;; Stop at the end of the file, not just add lines
+(setq next-line-add-newlines nil)
 
 ;; ;; Autoindent from http://www.emacswiki.org/emacs/AutoIndentation
 ;; (dolist (command '(yank yank-pop))
@@ -309,34 +511,14 @@
 ;;     (kill-line arg)))
 
 
-;; Emacs Customization - mine:
-
-
-;;Change meta key to super key (like windows key)
-;;(setq x-super-keysym 'meta)
-(setq tab-width 4)
-(setq indent-tabs-mode nil)
-
-;;short yes and no
-(fset 'yes-or-no-p 'y-or-n-p)
-;;Add column numbers
-(setq column-number-mode t)
-;;Add line numbers
-(setq line-number-mode t)
-;;Disable upper and lower case region
-(put 'upcase-region 'disabled t)
-(put 'downcase-region 'disabled t)
-;; erase the contents of a buffer
-(put 'erase-buffer 'disabled nil)
-;; Visual feedback on selections
-(setq-default transient-mark-mode t)
-;; Always end a file with a newline
-(setq require-final-newline t)
-;; Stop at the end of the file, not just add lines
-(setq next-line-add-newlines nil)
 
 
 
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
+;; ------------------   EMACS CUSTOMIZATION   ----------------------;;
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
 
 
 (custom-set-variables
@@ -354,7 +536,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (markdown-mode+ markdown-mode cmake-mode ## company-irony irony auto-complete-clang flycheck rtags multiple-cursors cmake-ide minimap go-mode elpy)))
+    (counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
