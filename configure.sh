@@ -6,6 +6,16 @@
 
 OS=$(uname -s)
 
+if [ ! -d "~/.emacs.d/custom" ]; then
+    echo "making ~/.emacs.d/custom"
+    mkdir ~/.emacs.d/custom/
+fi
+echo "linking custom setup files"
+ln -s custom/setup-editing.el ~/.emacs.d/custom/
+ln -s custom/setup-cedet.el ~/.emacs.d/custom/
+ln -s custom/setup-helm.el ~/.emacs.d/custom/
+ln -s custom/setup-helm-gtags.el ~/.emacs.d/custom/
+exit 0
 
 case $OS in
     Darwin)
@@ -29,7 +39,7 @@ case $OS in
 	echo "Unknown OS"
 esac
 
-# exit 0
+
 
 ln -s ~/emacs/.emacs ~/.emacs
 ln -s ~/emacs/.bash_aliases ~/.bash_aliases

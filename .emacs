@@ -16,8 +16,22 @@
 ;;      Char M-x goto-char
 ;; Repeat:
 ;;   C-u 4 : repeat the next command 4 times
-;;   ESC-4 : repeat the next command 4 times     
+;;   ESC-4 : repeat the next command 4 times
 ;; Comment M-; (on selected region)
+
+
+;; NEW TO LEARN:
+;; setup-editing.el
+;;   M-o insert line
+;;   C-c i indent region
+;;   C-; - iedit - like multicursor - edit all occurences of in buffer
+;; helm and related :
+;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
+;;   C-c s interactively search from point and display search in other buffer!!!!
+;;   M-i to interactively change the buffer
+;;   M-., M-, go to def and pop
+
+
 
 ;; Marks, Points
 ;;  C-SPC set mark
@@ -52,14 +66,14 @@
 ;;   Now use ESC-500 + CMD to repeat 500 times
 
 ;; Searching
-;;   Find and Replace: M-%
+;;   Find and Replace: M-%, or C-M-% for regexp search with setup-editing.el
 ;;     Then y: replace, n: no, q: exit, !:replace all
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
 ;;     C-s M-n [M-p] Use next or previous search in search history
 ;;     C-s C-s Repeat search
 ;;  Searching Directories: M-x dired
 ;; Grep:
-;;   M-x grep. Can use as rgrep to search recursively
+;;   M-x grep. Can use as rgrep to search recursively (add -r after grep)
 
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
@@ -79,7 +93,8 @@
 ;; Files
 ;;   Save modified: C-x-s
 ;;   Autosave: #filename. Recover: M-x recover-file
-;;   Revert Buffer when changed elsewhere: M-x revert-buffer 
+;;   Revert Buffer when changed elsewhere: M-x revert-buffer
+;;   C-x C-r : find recent (uses recentf)
 
 ;; Windows / Buffer
 ;;   Switch: C-x-o
@@ -136,14 +151,46 @@
 ;; Web browser
 ;;   M-x eww
 
-;; Projectile
+
+;; Zygospore
+;;   Toggle C-x-1 : window open close
+
+;; helm
+;;   C-M-a, C-M-e : beginning and end of defun
+;;   C-M-a   : mark defun
+;;   C-M-SPC : mark sexp
+;;   C-M-f, C-M-b : forward, back sexp
+;;   C-M-k        : kill sexp
+;;   C-c h : helm prefix
+;;   C-c h g : Google Search
+;;
+;; helm-gtags
+;;   setup gtags - install gnu global as parser: https://www.gnu.org/software/global/global.html
+;;     mac - brew install global, linux - apt install global???
+;;     cd to project directory base: $ gtags
+;;   M-. , M-,  : jump to definition, pop definition
+;;
+;; helm-swoop
+;;   C-c s interactively search from point and display search in other buffer!!!!
+;;   M-i to interactively change the buffer
+;;
+;; helm-projectile
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
 ;;   replace in project
 ;;   multi-occur in project buffers
 ;;   grep in project
+;;   C-c p h : M-x helm-projectile-find-file
+;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
 
-;; Zygospore
-;;   Toggle C-x-1 : window open close
+
+;; setup-CEDET.el
+;;   Semantic:
+;;     C-c C-j : semantic jump to
+;;     C-c C-s : semantic show summary
+;;   EDE
+;;   Speedbar:
+;;     sr-speedbar-open : open mini window browser
+
 
 ;; Company
 
@@ -159,6 +206,7 @@
 
 ;; auto-complete-clang
 
+
 ;; -----------------------------------------------------------------;;
 ;; -------------------------   END   -------------------------------;;
 ;; -----------------------------------------------------------------;;
@@ -170,13 +218,13 @@
 ;; -----------------------------------------------------------------;;
 
 
-(require 'package) 
+(require 'package)
 
 (add-to-list 'package-archives
-	     '("melpa" . "http://melpa.org/packages/") t)
+             '("melpa" . "http://melpa.org/packages/") t)
 (package-initialize) ;; You might already have this line
 (when (not package-archive-contents)
-    (package-refresh-contents))
+  (package-refresh-contents))
 ;; ------------------------------------------------------ ;;
 ;;      Remove package signature check to prevent hang
 (setq package-check-signature nil)
@@ -190,7 +238,7 @@
 ;; Bootstrap `use-package'
 ;; https://github.com/jwiegley/use-package
 (unless (package-installed-p 'use-package)
-(package-install 'use-package))
+  (package-install 'use-package))
 
 (require 'use-package)
 (setq use-package-always-ensure t)
@@ -209,34 +257,34 @@
   )
 
 ;; IDO: interactively do things:
-;;(setq ido-everywhere t)
-(use-package ido
-  :init
-  (setq ido-enable-flex-matching t)
-  :config
-  (ido-mode t)  
-  :ensure t
-  )
+;; (use-package ido
+;;   :init
+;;   (setq ido-enable-flex-matching t)
+;;   (setq ido-everywhere t)
+;;   :config
+;;   (ido-mode t)
+;;   :ensure t
+;;   )
 
-;; FLX-IDO: fuzzy matching for ido
-;;   It is suggested to add fly-ido to make projectile matching fuzzy
-;;   https://github.com/lewang/flx
-(use-package flx-ido
-  :ensure t
-  )
-;; Now make ido work with flx's fuzzy matching:
-(require 'flx-ido)
-(ido-mode 1)
-;;(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
+;; ;; FLX-IDO: fuzzy matching for ido
+;; ;;   It is suggested to add fly-ido to make projectile matching fuzzy
+;; ;;   https://github.com/lewang/flx
+;; (use-package flx-ido
+;;   :ensure t
+;;   )
+;; ;; Now make ido work with flx's fuzzy matching:
+;; (require 'flx-ido)
+;; (ido-mode 1)
+;; ;;(ido-everywhere 1)
+;; (flx-ido-mode 1)
+;; ;; disable ido faces to see flx highlights.
+;; (setq ido-enable-flex-matching t)
+;; (setq ido-use-faces nil)
 
 
 
 ;; recentf   From mastering emacs find recent files
-;; 
+;;
 (use-package recentf
   :init
   (require 'ido)
@@ -245,7 +293,7 @@
     "Use `ido-completing-read' to \\[find-file] a recent file"
     (interactive)
     (if (find-file (ido-completing-read "Find recent file: " recentf-list))
-	(message "Opening file...")
+        (message "Opening file...")
       (message "Aborting")))
   (global-set-key (kbd "C-x C-r") 'ido-recentf-open)
   :config
@@ -258,39 +306,43 @@
 ;; Reverts C-x-1 to bring back killed window https://github.com/LouisKottmann/zygospore.el
 (use-package zygospore
   :bind (("C-x 1" . zygospore-toggle-delete-other-windows)
-         ("RET" .   newline-and-indent)) 
-					; automatically indent when press RET
+         ("RET" .   newline-and-indent))
+                                        ; automatically indent when press RET
   :ensure t
   )
 
-;; (use-package zygospore
-;;   :config
-;;   (global-set-key (kbd "C-x 1") 'zygospore-toggle-delete-other-windows)
-;;   :ensure t
-;;   )
 
 
 ;; Company
 (use-package company
   :init
   (global-company-mode 1)
-  (delete 'company-semantic company-backends))
-;; (define-key c-mode-map  [(control tab)] 'company-complete)
-;; (define-key c++-mode-map  [(control tab)] 'company-complete)
+  (delete 'company-semantic company-backends)
+  (define-key c-mode-map  [(control tab)] 'company-complete)
+  (define-key c++-mode-map  [(control tab)] 'company-complete)
+  )
+;; ;; Yasnippet - for adding in in code snippets
+;; (use-package yasnippet
+;;   :defer t
+;;   :init
+;;   (add-hook 'prog-mode-hook 'yas-minor-mode)
+;;   :config
+;;   (yas-global-mode 1)
+;;   :ensure t
+;;   )
 
-
-;; Projectile
+;; Projectile - using helm-projectile instead
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
 ;;   replace in project
 ;;   multi-occur in project buffers
 ;;   grep in project
-(use-package projectile
-  :init
-  (projectile-global-mode)
-  (setq projectile-enable-caching t)
-  (setq projectile-project-search-path '("~/code/"))
-  :ensure t
-  )
+;; (use-package projectile
+;;   :init
+;;   (projectile-global-mode)
+;;   (setq projectile-enable-caching t)
+;;   (setq projectile-project-search-path '("~/code/"))
+;;   :ensure t
+;;   )
 
 
 
@@ -300,35 +352,26 @@
 ;; ((nil
 ;;  (cmake-ide-build-dir . "~/code/onboard/build")))
 
-(add-to-list 'load-path "~/.emacs.d/rtags/src/")
-(use-package rtags)
-(use-package flycheck)
-(use-package auto-complete-clang)
+;; (add-to-list 'load-path "~/.emacs.d/rtags/src/")
+;; (use-package rtags)
+;; (use-package flycheck)
+;; (use-package auto-complete-clang)
 
-;; Irony
-(use-package irony
-  :config
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  (add-hook 'objc-mode-hook 'irony-mode)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  :ensure t
-  )
+;; ;; Irony
+;; (use-package irony
+;;   :config
+;;   (add-hook 'c++-mode-hook 'irony-mode)
+;;   (add-hook 'c-mode-hook 'irony-mode)
+;;   (add-hook 'objc-mode-hook 'irony-mode)
+;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+;;   :ensure t
+;;   )
 
-;; Company-irony
-(use-package company-irony
-  :ensure t
-  )
+;; ;; Company-irony
+;; (use-package company-irony
+;;   :ensure t
+;;   )
 
-;; Yasnippet
-(use-package yasnippet
-  :defer t
-  :init
-  (add-hook 'prog-mode-hook 'yas-minor-mode)
-  :config
-  (yas-global-mode 1)
-  :ensure t
-  )
 
 
 ;; (use-package cmake-ide
@@ -340,11 +383,11 @@
 ;;   (cond    ; Switch on OS
 ;;    ((string-equal system-type "darwin") ; Mac OS X
 ;;     (setq cmake-ide-flags-c++
-;; 	  "/usr/local/include:/Library/Developer/CommandLineTools/usr/include/c++/v1:/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include:/Library/Developer/CommandLineTools/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"))
+;;    "/usr/local/include:/Library/Developer/CommandLineTools/usr/include/c++/v1:/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include:/Library/Developer/CommandLineTools/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"))
 ;;    ((string-equal system-type "gnu/linux") ; linux
 ;;     (setq cmake-ide-flags-c++
-;; 	  "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include"))
-;;    )	
+;;    "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include"))
+;;    )
 ;;   )
 
 
@@ -352,20 +395,20 @@
 ;; Multiple cursors
 ;; NOTE: To get out of multiple-cursors-mode, press <return> or C-g. The latter will first disable multiple regions before disabling multiple cursors. If you want to insert a newline in multiple-cursors-mode, use C-j
 (use-package multiple-cursors
-	     :config
-	     (define-key mc/keymap (kbd "<return>") nil)
-	     ;; Exit multiple-cursors Ctrl-g
-	     (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
-	     (global-set-key (kbd "C->") 'mc/mark-next-like-this)
-	     (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
-	     (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
-	     (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
-	     :ensure t
-	     )
+  :config
+  (define-key mc/keymap (kbd "<return>") nil)
+  ;; Exit multiple-cursors Ctrl-g
+  (global-set-key (kbd "C-S-c C-S-c") 'mc/edit-lines)
+  (global-set-key (kbd "C->") 'mc/mark-next-like-this)
+  (global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+  (global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+  (global-set-key (kbd "C-S-<mouse-1>") 'mc/add-cursor-on-click)
+  :ensure t
+  )
 
 
 ;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html#orgheadline0
-;; Adding in setup lisp scripts 
+;; Adding in setup lisp scripts
 (add-to-list 'load-path "~/.emacs.d/custom")
 (if (version< emacs-version "24.4")
     (require 'setup-ivy-counsel)) ;; -> can't install counsel or cousel-projectile. Helm should be fine.
@@ -373,6 +416,14 @@
 (require 'setup-helm-gtags)
 (require 'setup-cedet)
 (require 'setup-editing)
+;; -> This makes yank and pop work better and includes
+;;   M-o insert line
+;;   C-c i indent region
+;;   M-; commenting
+;;   replaces search and replace: M-% and C-M-% for regexp
+;;   C-; - iedit - like multicursor - edit all occurences of in buffer
+;;   C-a - shoot to beginning of line after whitespace
+;;
 ;; (require 'setup-ggtags)
 
 
@@ -447,8 +498,8 @@
 
 ;; C/C++   --   CC-Mode
 (setq c-default-style '((java-mode . "java")
-			(awk-mode . "awk")
-			(other . "stroustrup")))
+                        (awk-mode . "awk")
+                        (other . "stroustrup")))
 
 
 
@@ -536,7 +587,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
