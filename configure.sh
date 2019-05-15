@@ -6,16 +6,7 @@
 
 OS=$(uname -s)
 
-if [ ! -d "~/.emacs.d/custom" ]; then
-    echo "making ~/.emacs.d/custom"
-    mkdir ~/.emacs.d/custom/
-fi
-echo "linking custom setup files"
-ln -s custom/setup-editing.el ~/.emacs.d/custom/
-ln -s custom/setup-cedet.el ~/.emacs.d/custom/
-ln -s custom/setup-helm.el ~/.emacs.d/custom/
-ln -s custom/setup-helm-gtags.el ~/.emacs.d/custom/
-exit 0
+# exit 0
 
 case $OS in
     Darwin)
@@ -42,6 +33,23 @@ esac
 
 
 ln -s ~/emacs/.emacs ~/.emacs
+apt-get install emacs
+
+if [ ! -d "~/.emacs.d/" ]; then
+    echo "making ~/.emacs.d/"
+    mkdir ~/.emacs.d/
+fi
+
+if [ ! -d "~/.emacs.d/custom" ]; then
+    echo "making ~/.emacs.d/custom"
+    mkdir ~/.emacs.d/custom/
+fi
+echo "linking custom setup files"
+ln -s  ~/emacs/custom/setup-editing.el ~/.emacs.d/custom/
+ln -s  ~/emacs/custom/setup-cedet.el ~/.emacs.d/custom/
+ln -s  ~/emacs/custom/setup-helm.el ~/.emacs.d/custom/
+ln -s  ~/emacs/custom/setup-helm-gtags.el ~/.emacs.d/custom/
+
 ln -s ~/emacs/.bash_aliases ~/.bash_aliases
 ln -s ~/emacs/.bc ~/.bc
 

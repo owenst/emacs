@@ -213,6 +213,114 @@
 
 
 
+
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
+;; ---------------------   EMACS SETUP   ---------------------------;;
+;; -----------------------------------------------------------------;;
+;; -----------------------------------------------------------------;;
+
+
+;;Save state of emacs:
+(desktop-save-mode 1)
+
+;; initial frame size:
+(add-to-list 'default-frame-alist '(height . 50))
+(add-to-list 'default-frame-alist '(width . 150))
+
+;; use space to indent by default
+(setq-default indent-tabs-mode nil)
+;; set appearance of a tab that is represented by 4 spaces
+(setq-default tab-width 4)
+
+
+
+
+
+;; Garbage collection default 800kb
+;;   If you notice freezing: http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
+(setq gc-cons-threshold 100000000)
+
+(setq inhibit-startup-message t)
+
+
+
+
+
+;; Compilation - set f5 to call compile automatically
+(global-set-key (kbd "<f5>") (lambda ()
+                               (interactive)
+                               (setq-local compilation-read-command nil)
+                               (call-interactively 'compile)))
+
+
+;; setup GDB
+(setq
+ ;; use gdb-many-windows by default
+ gdb-many-windows t
+
+ ;; Non-nil means display source file containing the main routine at startup
+ gdb-show-main t
+ )
+
+;; Insertion of Dates.
+(defun insert-date-string ()
+  "Insert a nicely formated date string."
+  (interactive)
+  (insert (format-time-string "%Y-%m-%d")))
+;; C-c d calls insert-date-string
+(global-set-key (kbd "C-c d") 'insert-date-string)
+
+;; PYTHON
+;; set pdb command to run:
+(setq gud-pdb-command-name "python -m pdb")
+
+
+;; C/C++   --   CC-Mode
+(setq c-default-style '((java-mode . "java")
+                        (awk-mode . "awk")
+                        (other . "stroustrup")))
+
+
+
+;; This defines C-x C-x to not activate region when exchanging the
+;; point and mark So you can use C-SPC C-SPC to set mark deactivate
+;; region and then move around then jump back without selecting a
+;; region
+;; https://masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
+(defun exchange-point-and-mark-no-activate ()
+  "Identical to \\[exchange-point-and-mark] but will not activate the region."
+  (interactive)
+  (exchange-point-and-mark)
+  (deactivate-mark nil))
+(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
+
+
+;;Change meta key to super key (like windows key)
+;;(setq x-super-keysym 'meta)
+
+
+;;short yes and no
+(fset 'yes-or-no-p 'y-or-n-p)
+;;Add column numbers
+(setq column-number-mode t)
+;;Add line numbers
+(setq line-number-mode t)
+;;Disable upper and lower case region
+(put 'upcase-region 'disabled t)
+(put 'downcase-region 'disabled t)
+;; erase the contents of a buffer
+(put 'erase-buffer 'disabled nil)
+;; Visual feedback on selections
+(setq-default transient-mark-mode t)
+;; Always end a file with a newline
+(setq require-final-newline t)
+;; Stop at the end of the file, not just add lines
+(setq next-line-add-newlines nil)
+
+
+
+
 ;; -----------------------------------------------------------------;;
 ;; -----------------------   PACKAGES   ----------------------------;;
 ;; -----------------------------------------------------------------;;
@@ -232,8 +340,8 @@
 
 
 ;; Bootstrap use-package
-(eval-when-compile
-  (require 'use-package))
+;;(eval-when-compile
+;;  (require 'use-package))
 
 ;; Bootstrap `use-package'
 ;; https://github.com/jwiegley/use-package
@@ -318,8 +426,8 @@
   :init
   (global-company-mode 1)
   (delete 'company-semantic company-backends)
-  (define-key c-mode-map  [(control tab)] 'company-complete)
-  (define-key c++-mode-map  [(control tab)] 'company-complete)
+;;  (define-key c-mode-map  [(control tab)] 'company-complete)
+;;  (define-key c++-mode-map  [(control tab)] 'company-complete)
   )
 ;; ;; Yasnippet - for adding in in code snippets
 ;; (use-package yasnippet
@@ -431,137 +539,6 @@
 ;; -----------------------------------------------------------------;;
 ;; -------------------------   END   -------------------------------;;
 ;; -----------------------------------------------------------------;;
-
-
-
-;; -----------------------------------------------------------------;;
-;; -----------------------------------------------------------------;;
-;; ---------------------   EMACS SETUP   ---------------------------;;
-;; -----------------------------------------------------------------;;
-;; -----------------------------------------------------------------;;
-
-
-;;Save state of emacs:
-(desktop-save-mode 1)
-
-;; initial frame size:
-(add-to-list 'default-frame-alist '(height . 50))
-(add-to-list 'default-frame-alist '(width . 150))
-
-;; use space to indent by default
-(setq-default indent-tabs-mode nil)
-;; set appearance of a tab that is represented by 4 spaces
-(setq-default tab-width 4)
-
-
-
-
-
-;; Garbage collection default 800kb
-;;   If you notice freezing: http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
-(setq gc-cons-threshold 100000000)
-
-(setq inhibit-startup-message t)
-
-
-
-
-
-;; Compilation - set f5 to call compile automatically
-(global-set-key (kbd "<f5>") (lambda ()
-                               (interactive)
-                               (setq-local compilation-read-command nil)
-                               (call-interactively 'compile)))
-
-
-;; setup GDB
-(setq
- ;; use gdb-many-windows by default
- gdb-many-windows t
-
- ;; Non-nil means display source file containing the main routine at startup
- gdb-show-main t
- )
-
-;; Insertion of Dates.
-(defun insert-date-string ()
-  "Insert a nicely formated date string."
-  (interactive)
-  (insert (format-time-string "%Y-%m-%d")))
-;; C-c d calls insert-date-string
-(global-set-key (kbd "C-c d") 'insert-date-string)
-
-;; PYTHON
-;; set pdb command to run:
-(setq gud-pdb-command-name "python -m pdb")
-
-
-;; C/C++   --   CC-Mode
-(setq c-default-style '((java-mode . "java")
-                        (awk-mode . "awk")
-                        (other . "stroustrup")))
-
-
-
-;; This defines C-x C-x to not activate region when exchanging the
-;; point and mark So you can use C-SPC C-SPC to set mark deactivate
-;; region and then move around then jump back without selecting a
-;; region
-;; https://masteringemacs.org/article/fixing-mark-commands-transient-mark-mode
-(defun exchange-point-and-mark-no-activate ()
-  "Identical to \\[exchange-point-and-mark] but will not activate the region."
-  (interactive)
-  (exchange-point-and-mark)
-  (deactivate-mark nil))
-(define-key global-map [remap exchange-point-and-mark] 'exchange-point-and-mark-no-activate)
-
-
-;;Change meta key to super key (like windows key)
-;;(setq x-super-keysym 'meta)
-
-
-;;short yes and no
-(fset 'yes-or-no-p 'y-or-n-p)
-;;Add column numbers
-(setq column-number-mode t)
-;;Add line numbers
-(setq line-number-mode t)
-;;Disable upper and lower case region
-(put 'upcase-region 'disabled t)
-(put 'downcase-region 'disabled t)
-;; erase the contents of a buffer
-(put 'erase-buffer 'disabled nil)
-;; Visual feedback on selections
-(setq-default transient-mark-mode t)
-;; Always end a file with a newline
-(setq require-final-newline t)
-;; Stop at the end of the file, not just add lines
-(setq next-line-add-newlines nil)
-
-;; ;; Autoindent from http://www.emacswiki.org/emacs/AutoIndentation
-;; (dolist (command '(yank yank-pop))
-;;    (eval `(defadvice ,command (after indent-region activate)
-;;             (and (not current-prefix-arg)
-;;                  (member major-mode '(emacs-lisp-mode lisp-mode
-;;                                                       clojure-mode    scheme-mode
-;;                                                       haskell-mode    ruby-mode
-;;                                                       rspec-mode      python-mode
-;;                                                       c-mode          c++-mode
-;;                                                       objc-mode       latex-mode
-;;                                                       plain-tex-mode))
-;;                  (let ((mark-even-if-inactive transient-mark-mode))
-;;                    (indent-region (region-beginning) (region-end) nil))))))
-;; ;; ;; kill and join forward
-;; (defun kill-and-join-forward (&optional arg)
-;;   (interactive "P")
-;;   (if (and (eolp) (not (bolp)))
-;;       (progn (forward-char 1)
-;;              (just-one-space 0)
-;;              (backward-char 1)
-;;              (kill-line arg))
-;;     (kill-line arg)))
-
-
 
 
 
