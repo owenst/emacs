@@ -1,5 +1,4 @@
 
-#overwrite default ll alias:
 alias dirs='dirs -v'
 
 # OS specific aliases
@@ -12,7 +11,7 @@ case $OS in
     Linux)
 	echo "Linux"
 	alias open=xdg-open    	
-	alias ll='ls -lahF'
+	alias ll='ls -lahF --color=auto'
 	alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
 	;;
     *)
@@ -67,87 +66,3 @@ git_prompt ()
   fi
   echo " [$git_color$git_branch${c_reset}]"
 }
-
-
-
-Mac
-scripts [master] $ 
-scripts [master] $ 
-scripts [master] $ 
-scripts [master] $ 
-scripts [master] $ pwd
-/Users/trevor/.emacs.d/scripts
-scripts [master] $ ggs
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
-
-	modified:   .bash_aliases
-	modified:   configure.sh
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	../.emacs.desktop
-	../.emacs.desktop.lock
-	../ede-projects.el
-	../elpa/
-	../ido.last
-	../network-security.data
-	../projectile-bookmarks.eld
-	../projectile.cache
-	../recentf
-	../recentf~
-	.#.bash_aliases
-	../semanticdb/
-	../url/
-
-no changes added to commit (use "git add" and/or "git commit -a")
-scripts [master] $ gga .bash_aliases
-scripts [master] $ gga configure.sh
-scripts [master] $ ggs
-On branch master
-Your branch is up to date with 'origin/master'.
-
-Changes to be committed:
-  (use "git reset HEAD <file>..." to unstage)
-
-	modified:   .bash_aliases
-	modified:   configure.sh
-
-Untracked files:
-  (use "git add <file>..." to include in what will be committed)
-
-	../.emacs.desktop
-	../.emacs.desktop.lock
-	../ede-projects.el
-	../elpa/
-	../ido.last
-	../network-security.data
-	../projectile-bookmarks.eld
-	../projectile.cache
-	../recentf
-	../recentf~
-	.#.bash_aliases
-	../semanticdb/
-	../url/
-
-scripts [master] $ ggc "modified .bash_aliases"
-[master c3234b0] modified .bash_aliases
- 2 files changed, 5 insertions(+), 4 deletions(-)
-scripts [master] $ git pull
-Already up to date.
-scripts [master] $ git push
-Enumerating objects: 9, done.
-Counting objects: 100% (9/9), done.
-Delta compression using up to 4 threads
-Compressing objects: 100% (5/5), done.
-Writing objects: 100% (5/5), 485 bytes | 485.00 KiB/s, done.
-Total 5 (delta 4), reused 0 (delta 0)
-remote: Resolving deltas: 100% (4/4), completed with 4 local objects.        
-To https://github.com/owenst/emacs.git
-   0632ddf..c3234b0  master -> master
-scripts [master] $ 
