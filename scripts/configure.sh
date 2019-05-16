@@ -33,9 +33,9 @@ esac
 
 
 
-
-ln -s ./.bash_aliases ~/.bash_aliases
-ln -s ./.bc ~/.bc
+echo $PWD
+ln -s $PWD/.bash_aliases ~/.bash_aliases
+ln -s $PWD/.bc ~/.bc
 
 # These should only be run once:
 echo 'set BC_ENV_ARGS=~/.bc; export BC_ENV_ARGS'  >> ~/.bashrc

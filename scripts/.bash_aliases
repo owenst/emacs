@@ -1,6 +1,5 @@
 
 #overwrite default ll alias:
-alias ll='ls -alhF'
 alias dirs='dirs -v'
 
 # OS specific aliases
@@ -8,10 +7,12 @@ OS=$(uname -s)
 case $OS in
     Darwin)
 	echo "Mac"
+	alias ll='ls -lahFG'
 	;;
     Linux)
 	echo "Linux"
 	alias open=xdg-open    	
+	alias ll='ls -lahFG'
 	alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
 	;;
     *)
