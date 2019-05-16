@@ -7,7 +7,7 @@
 OS=$(uname -s)
 
 # exit 0
-ONLY_ONCE=
+
 case $OS in
     Darwin)
         if ! grep -q "# ADD ALIASES" ~/.bashrc
