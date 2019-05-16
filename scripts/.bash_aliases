@@ -32,7 +32,7 @@ alias ggd="git diff"
 
 # Adding in a git based colorful prompt
 
-if [ $OS = "Darwin"]
+if [ $OS = "Darwin" ]
 then
     echo "setting prompt on Mac"
     # A more colorful prompt
