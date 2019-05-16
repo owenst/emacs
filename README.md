@@ -1,34 +1,19 @@
 # emacs
-This is an emacs file which can be used on linux or mac osx
+This repo is meant to replace your `~/.emacs.d` folder. It contains an `init.el` file (instead of a `.emacs` file) and several additional emacs customizations in `custom/`. It has been tested on linux and macOS. It also contains some shell scripts in `scripts/` for setting up a nice git and bash environment. The `init.el` file uses `use-package` to install many required packages, so the first time opening emacs may be slow and there may be some trouble shooting!
 
-* clone to ~ then in emacs/ run
+* clone to `~/.emacs.d` then in `scripts/` run
 * chmod +x configure.sh
 * ./configure.sh
-* which links .emacs and .bash_aliases and sources the aliases and bashrc
-* you may have to remove the current .emacs or other files
+  * this links .bash_aliases and sources the aliases and bashrc
+  * you may have to remove the current .bashrc, .bash_aliases, .emacs or other files
 
 ## Packages:
 ### Installation
   * M-x package-refresh-contents
   * M-x package-install RET package_name RET
-### Good ones:
-* markdown-mode+ 
-* markdown-mode 
-* cmake-mode 
-* cmake-ide 
-* company-irony 
-* irony 
-* auto-complete-clang 
-* flycheck 
-* rtags 
-* multiple-cursors 
-* minimap 
-* go-mode 
-* elpy
-
-
+  
 ##  Notes:
-
+See init.el for notes on the best shortcuts!
 * Move:   C-f, C-b, C-a, C-e
 * Move:   M-f, M-b, M-a, M-e
 * Kill chain:   C-k, C-y, M-y	

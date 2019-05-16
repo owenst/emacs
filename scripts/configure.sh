@@ -32,26 +32,10 @@ esac
 
 
 
-ln -s ~/emacs/.emacs ~/.emacs
-apt-get install emacs
 
-if [ ! -d "~/.emacs.d/" ]; then
-    echo "making ~/.emacs.d/"
-    mkdir ~/.emacs.d/
-fi
 
-if [ ! -d "~/.emacs.d/custom" ]; then
-    echo "making ~/.emacs.d/custom"
-    mkdir ~/.emacs.d/custom/
-fi
-echo "linking custom setup files"
-ln -s  ~/emacs/custom/setup-editing.el ~/.emacs.d/custom/
-ln -s  ~/emacs/custom/setup-cedet.el ~/.emacs.d/custom/
-ln -s  ~/emacs/custom/setup-helm.el ~/.emacs.d/custom/
-ln -s  ~/emacs/custom/setup-helm-gtags.el ~/.emacs.d/custom/
-
-ln -s ~/emacs/.bash_aliases ~/.bash_aliases
-ln -s ~/emacs/.bc ~/.bc
+ln -s ./.bash_aliases ~/.bash_aliases
+ln -s ./.bc ~/.bc
 
 # These should only be run once:
 echo 'set BC_ENV_ARGS=~/.bc; export BC_ENV_ARGS'  >> ~/.bashrc
