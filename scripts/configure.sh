@@ -36,7 +36,7 @@ case $OS in
     Linux)
         echo "Linux"
         echo "Installing bash completions:"
-        sudo apt install bash-completion
+        apt install bash-completion
         echo
     ;;
     *)
@@ -52,7 +52,7 @@ esac
 git_completion_script=/usr/local/etc/bash_completion.d/git-completion.bash
 if test -s $git_completion_script
 then
-    echo "bash completions found"
+    echo "git completions found"
     source $git_completion_script
 fi
 
