@@ -13,7 +13,6 @@ case $OS in
     Darwin)
         if ! grep -q "# ADD ALIASES" ~/.bashrc
         then
-
             echo "Mac - adding to .bashrc"
             echo '# ADD ALIASES'                    >> ~/.bashrc
             echo 'if [ -f ~/.bash_aliases ]; then ' >> ~/.bashrc
@@ -28,24 +27,44 @@ case $OS in
             echo '    source ~/.bashrc'             >> ~/.bash_profile
             echo 'fi'                               >> ~/.bash_profile
         fi
+        echo "Installing bash completions:"
+        brew install bash-completion
+        echo
 
     ;;
 
     Linux)
-    echo "Linux"
+        echo "Linux"
+        echo "Installing bash completions:"
+        sudo apt install bash-completion
+        echo
     ;;
     *)
-    echo "Unknown OS"
+        echo "Unknown OS"
 esac
 
 
+# Load git completions
+
+# Need to install bash-completion:
+## Mac: $ brew install bash-completion
+## Linux: sudo apt-get install bash-completion
+git_completion_script=/usr/local/etc/bash_completion.d/git-completion.bash
+if test -s $git_completion_script
+then
+    echo "bash completions found"
+    source $git_completion_script
+fi
 
 
+echo
+echo "Link bash_aliases and bc"
 echo "Current directory: " $PWD
 ln -s $PWD/.bash_aliases ~/.bash_aliases
 ln -s $PWD/.bc ~/.bc
 
-# These should only be run once:
+echo
+# These should only be run once, hence inclusion guards:
 if ! grep -q "# ONLY ONCE" ~/.bashrc
 then
     echo
@@ -58,11 +77,16 @@ then
     echo 'export VISUAL=nano'                         >> ~/.bashrc
     echo 'export EDITOR="$VISUAL"'                    >> ~/.bashrc
 fi
+
+echo
+echo "sourcing bashrc"
 source ~/.bashrc
+echo
 
 #configure git
 
 echo "Configuring git for work and locally for emacs repo"
+
 git config --global user.name "Trevor"
 git config --global user.email "trevor@airspace.co"
 git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
@@ -73,8 +97,8 @@ git config user.email "164865+owenst@users.noreply.github.com"
 
 echo
 echo "Printing git config"
+echo "run git config -l to see git config"
 echo
 git config -l
 echo
 
-echo "run git config -l to see git config"

@@ -1,3 +1,6 @@
+echo
+echo ".bash_aliases"
+echo
 
 alias dirs='dirs -v'
 
@@ -5,17 +8,18 @@ alias dirs='dirs -v'
 OS=$(uname -s)
 case $OS in
     Darwin)
-	echo "Mac"
-	alias ll='ls -lahFG'
-	;;
+
+	    echo "Adding Mac aliases"
+	    alias ll='ls -lahFG'
+	    ;;
     Linux)
-	echo "Linux"
-	alias open=xdg-open    	
-	alias ll='ls -lahF --color=auto'
-	alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
-	;;
+	    echo "Adding Linux aliases"
+        alias open=xdg-open
+        alias ll='ls -lahF --color=auto'
+        alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
+        ;;
     *)
-	echo "Unknown OS"
+	    echo "Unknown OS"
 esac
 
 
@@ -27,15 +31,9 @@ alias ggd="git diff"
 
 
 # Adding in a git based colorful prompt
-#set -x
 
-# Load git completions
-# Need to install bash-completion:
-## Mac: $ brew install bash-completion
-## Linux: sudo apt-get install bash-completion
 ##      UNCOMMENT BELOW ON MAC
-git_completion_script=/usr/local/etc/bash_completion.d/git-completion.bash
-test -s $git_completion_script && source $git_completion_script
+
 # A more colorful prompt
 # \[\e[0m\] resets the color to default color
 c_reset='\[\e[0m\]'
