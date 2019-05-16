@@ -36,7 +36,7 @@ case $OS in
     Linux)
         echo "Linux"
         echo "Installing bash completions:"
-        apt install bash-completion
+        sudo apt install bash-completion
         echo
     ;;
     *)
