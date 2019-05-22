@@ -194,17 +194,17 @@
 
 ;; Company
 
-;; Irony
-
-;; Company-Irony
 
 ;; Yasnippet
+;; M-x yas-describe-tables : shows available snippets for current mode
 
+;; OTHER UNUSED PACKAGES
+;; CSCOPE instead of GNU Global
 ;; rtags
-
 ;; flycheck
-
 ;; auto-complete-clang
+;; Irony
+;; Company-Irony
 
 
 ;; -----------------------------------------------------------------;;
@@ -242,8 +242,6 @@
 (setq gc-cons-threshold 100000000)
 
 (setq inhibit-startup-message t)
-
-
 
 
 
@@ -429,15 +427,20 @@
 ;;  (define-key c-mode-map  [(control tab)] 'company-complete)
 ;;  (define-key c++-mode-map  [(control tab)] 'company-complete)
   )
-;; ;; Yasnippet - for adding in in code snippets
-;; (use-package yasnippet
-;;   :defer t
-;;   :init
-;;   (add-hook 'prog-mode-hook 'yas-minor-mode)
-;;   :config
-;;   (yas-global-mode 1)
-;;   :ensure t
-;;   )
+;; Yasnippet - for adding in in code snippets
+(use-package yasnippet
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  :config
+  (yas-global-mode 1)
+  :ensure t
+  )
+
+(use-package yasnippet-snippets
+  :ensure t
+  )
+;; M-x yas-describe-tables
 
 ;; Projectile - using helm-projectile instead
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
@@ -564,7 +567,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (helm-c-yasnippet yasnippet-snippets sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
