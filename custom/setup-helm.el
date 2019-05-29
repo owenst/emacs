@@ -142,6 +142,7 @@
       (
        ("C-S-o" . 'helm-projectile-find-other-file)
        )
+      :ensure f
       )
 
     )

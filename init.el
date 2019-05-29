@@ -113,7 +113,22 @@
 ;; ------------------   IMPORTANT PACKAGES:   ----------------------;;
 ;; -----------------------------------------------------------------;;
 
-
+;; GDB:
+;; Setup: (need -g flag)
+;;   cat hello.c
+;;   gcc -g hello.c -o output_file_name
+;; Commands:
+;;   gdb a.out
+;;   start: goes through main
+;;   list shows position
+;;   q: quits
+;;   d : disable breakpoint
+;;   c: continue
+;;   run input_args
+;;   disp y : shows y value
+;;   C-c C-c to quit
+;;   b 43 : sets breakpoint at line 43
+;;   b 28 if value==19  : breaks only if condition is met
 
 ;; IDO: Interactively do things
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
