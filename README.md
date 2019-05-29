@@ -6,6 +6,12 @@ This repo is meant to replace your `~/.emacs.d` folder. It contains an `init.el`
 * ./configure.sh
   * this links .bash_aliases and sources the aliases and bashrc
   * you may have to remove the current .bashrc, .bash_aliases, .emacs or other files
+* Install gnu-global to generate gtags for emacs as C++ IDE:
+  * linux: `$ apt install global`
+  * mac: `brew install global`
+  * cd to project directory base: `$ gtags`
+* After installing emacs, open emacs and installation will begin. Watch the setup and check *Messages* and *Warnings* and fix as appropriate
+
 
 ## Packages:
 ### Installation

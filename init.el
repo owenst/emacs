@@ -518,7 +518,8 @@
   )
 
 
-;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html#orgheadline0
+;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html
+;;   Emacs demo setup: https://github.com/tuhdo/emacs-c-ide-demo
 ;; Adding in setup lisp scripts
 (add-to-list 'load-path "~/.emacs.d/custom")
 (if (version< emacs-version "24.4")
