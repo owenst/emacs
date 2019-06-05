@@ -11,6 +11,13 @@ This repo is meant to replace your `~/.emacs.d` folder. It contains an `init.el`
   * mac: `brew install global`
   * cd to project directory base: `$ gtags`
 * After installing emacs, open emacs and installation will begin. Watch the setup and check *Messages* and *Warnings* and fix as appropriate
+* To install emacs 26 (or 25) on Ubuntu 16.04 use kevin kelly's repo:
+  * remove any emacs installation: `sudo apt remove emacs`
+  * `sudo add-apt-repository ppa:kelleyk/emacs`
+  * `sudo apt update`
+  * `sudo apt install emacs26`
+  * Now set an alias for this
+    * alias emacs="emacs26"
 
 
 ## Packages:
