@@ -369,6 +369,16 @@
 ;; (setq debug-on-error t)
 ;;-----------------------------
 
+;; CMake-Mode
+(use-package cmake-mode
+  :ensure t
+  )
+(use-package cmake-font-lock
+  :init
+  (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+  (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+  :ensure t
+  )
 
 
 ;; ELPY
@@ -583,9 +593,12 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (helm-c-yasnippet yasnippet-snippets sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (cmake-font-lock helm-projectile helm-c-yasnippet yasnippet-snippets sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
- '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
+ '(safe-local-variable-values
+   (quote
+    ((cmake-ide-build-dir . "~/radar/build")
+     (cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
