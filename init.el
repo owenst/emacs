@@ -467,6 +467,13 @@
   )
 ;; M-x yas-describe-tables
 
+
+(use-package function-args
+  :ensure t
+  :config
+  (fa-config-default)
+  )
+
 ;; Projectile - using helm-projectile instead
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
 ;;   replace in project
