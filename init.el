@@ -468,11 +468,30 @@
 ;; M-x yas-describe-tables
 
 
+;; Smart function autocompletion
+;; https://github.com/abo-abo/function-args
 (use-package function-args
   :ensure t
   :config
   (fa-config-default)
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-default 'semantic-case-fold t)
+  ;; Add in include paths for searching
+  ;; Find include path using "gcc -x c++ -v -E /dev/null"
+  ;;(semantic-add-system-include "/usr/local/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include/c++/v1" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks" 'c++-mode)
   )
+;; fa-jump
+;; fa-show
+;; moo-jump-local
+;; moo-complete
+;;
+
+
 
 ;; Projectile - using helm-projectile instead
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
