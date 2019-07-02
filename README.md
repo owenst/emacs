@@ -14,6 +14,7 @@ This repo is meant to replace your `~/.emacs.d` folder. It contains an `init.el`
 * To install emacs 26 (or 25) on Ubuntu 16.04 use kevin kelly's repo:
   * remove any emacs installation: `sudo apt remove emacs`
   * `sudo add-apt-repository ppa:kelleyk/emacs`
+    * if add-apt-repository not installed: `apt-get install software-properties-common`
   * `sudo apt update`
   * `sudo apt install emacs26`
   * Now set an alias for this
