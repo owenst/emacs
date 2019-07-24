@@ -2,6 +2,7 @@
 
 ;; TODO:
 ;; 1) set code completion to use 0 characters
+;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
@@ -24,11 +25,11 @@
 ;; setup-editing.el
 ;;   M-o insert line
 ;;   C-c i indent region
-;;   C-; - iedit - like multicursor - edit all occurences of in buffer
+;;   C-i - iedit - like multicursor - edit all occurences of in buffer
 ;; helm and related :
 ;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
-;;   C-c s interactively search from point and display search in other buffer!!!!
-;;   M-i to interactively change the buffer
+;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
+;;   M-i to interactively change the buffer (from isearch to swoop or during helm)
 ;;   M-., M-, go to def and pop
 
 
@@ -38,7 +39,6 @@
 ;;  C-SPC C-SPC set mark but deactivate region
 ;;  C-u C-SPC pop mark
 ;;  C-x C-x toggle between point and mark
-;;  DEPRECATED (see below) C-u C-x C-x don't activate region
 ;;  M-r jump point around without scrolling
 ;;   Registers:
 ;;     C-x r SPC : save location to register
@@ -71,7 +71,13 @@
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
 ;;     C-s M-n [M-p] Use next or previous search in search history
 ;;     C-s C-s Repeat search
-;;  Searching Directories: M-x dired
+;;     M-i to hand this over to swoop
+;;  Searching Directories: C-x d OR M-x dired
+;;  Swoop search C-c s
+
+;; Buffer swap:
+;;   M-x buf-move-left / right / up / down
+
 ;; Grep:
 ;;   M-x grep. Can use as rgrep to search recursively (add -r after grep)
 
@@ -113,7 +119,23 @@
 ;; ------------------   IMPORTANT PACKAGES:   ----------------------;;
 ;; -----------------------------------------------------------------;;
 
-
+;; GDB:
+;; Setup: (need -g flag)
+;;   cat hello.c
+;;   gcc -g hello.c -o output_file_name
+;; Commands:
+;;   M-x gdb
+;;     Run like: gdb -i=mi a.out  (-i=mi is for many windows);;
+;;   start: goes through main
+;;   run input_args   : runs until
+;;   list shows position
+;;   q: quits
+;;   d : disable breakpoint
+;;   c: continue
+;;   disp y : shows y value
+;;   C-c C-c to quit
+;;   b 43 : sets breakpoint at line 43
+;;   b 28 if value==19  : breaks only if condition is met
 
 ;; IDO: Interactively do things
 ;;   Helps searching for files and through buffers (C-x C-f and C-x b)
@@ -172,7 +194,7 @@
 ;;
 ;; helm-swoop
 ;;   C-c s interactively search from point and display search in other buffer!!!!
-;;   M-i to interactively change the buffer
+;;   M-i to interactively change the buffer ??? already tab stop indent
 ;;
 ;; helm-projectile
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
@@ -189,22 +211,27 @@
 ;;     C-c C-s : semantic show summary
 ;;   EDE
 ;;   Speedbar:
-;;     sr-speedbar-open : open mini window browser
+;;     sr-speedbar-toggle : open mini window browser
 
 
 ;; Company
-
-;; Irony
-
-;; Company-Irony
+;;   Can use many different backends. The most basic is to use semantic which is portable and is a parser written in emacs.
+;;   We are using semantic
+;;   Want to also use gtags
+;; Here is a great example using irony with clang and gtags:
+;;   http://www.cachestocaches.com/2015/8/c-completion-emacs/
+;;   NEED TO CHECK COMPATIBILITY WITH SEMANTIC (with company)
 
 ;; Yasnippet
+;; M-x yas-describe-tables : shows available snippets for current mode
 
+;; OTHER UNUSED PACKAGES
+;; CSCOPE instead of GNU Global
 ;; rtags
-
 ;; flycheck
-
 ;; auto-complete-clang
+;; Irony
+;; Company-Irony
 
 
 ;; -----------------------------------------------------------------;;
@@ -245,10 +272,8 @@
 
 
 
-
-
-;; Compilation - set f5 to call compile automatically
-(global-set-key (kbd "<f5>") (lambda ()
+;; Compilation - set to call compile automatically
+(global-set-key (kbd "C-c c") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
@@ -356,6 +381,16 @@
 ;; (setq debug-on-error t)
 ;;-----------------------------
 
+;; CMake-Mode
+(use-package cmake-mode
+  :ensure t
+  )
+(use-package cmake-font-lock
+  :init
+  (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+  (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+  :ensure t
+  )
 
 
 ;; ELPY
@@ -409,6 +444,12 @@
   :ensure t
   )
 
+;; Buffer-move:
+;;   Swap buffers
+(use-package buffer-move
+  :ensure t
+  )
+
 
 ;;  Zygospore
 ;; Reverts C-x-1 to bring back killed window https://github.com/LouisKottmann/zygospore.el
@@ -425,19 +466,56 @@
 (use-package company
   :init
   (global-company-mode 1)
-  (delete 'company-semantic company-backends)
-;;  (define-key c-mode-map  [(control tab)] 'company-complete)
-;;  (define-key c++-mode-map  [(control tab)] 'company-complete)
+  :config
+  (add-hook 'after-init-hook 'global-company-mode)
+
+  ;; In setup-cedet we are using semantic, so don't delete for autocompletion:
+  ;;  (delete 'company-semantic company-backends)
+  ;;
+  ;; (define-key c-mode-map  [(control tab)] 'company-complete)
+  ;; (define-key c++-mode-map  [(control tab)] 'company-complete)
   )
-;; ;; Yasnippet - for adding in in code snippets
-;; (use-package yasnippet
-;;   :defer t
-;;   :init
-;;   (add-hook 'prog-mode-hook 'yas-minor-mode)
-;;   :config
-;;   (yas-global-mode 1)
-;;   :ensure t
-;;   )
+
+;; Yasnippet - for adding in in code snippets
+(use-package yasnippet
+  :defer t
+  :init
+  (add-hook 'prog-mode-hook 'yas-minor-mode)
+  :config
+  (yas-global-mode 1)
+  :ensure t
+  )
+
+(use-package yasnippet-snippets
+  :ensure t
+  )
+;; M-x yas-describe-tables
+
+
+;; Smart function autocompletion
+;; https://github.com/abo-abo/function-args
+(use-package function-args
+  :ensure t
+  :config
+  (fa-config-default)
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-default 'semantic-case-fold t)
+  ;; Add in include paths for searching
+  ;; Find include path using "gcc -x c++ -v -E /dev/null"
+  ;;(semantic-add-system-include "/usr/local/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include/c++/v1" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/lib/clang/10.0.1/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include" 'c++-mode)
+  ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks" 'c++-mode)
+  )
+;; fa-jump
+;; fa-show
+;; moo-jump-local
+;; moo-complete
+;;
+
+
 
 ;; Projectile - using helm-projectile instead
 ;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
@@ -515,7 +593,8 @@
   )
 
 
-;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html#orgheadline0
+;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html
+;;   Emacs demo setup: https://github.com/tuhdo/emacs-c-ide-demo
 ;; Adding in setup lisp scripts
 (add-to-list 'load-path "~/.emacs.d/custom")
 (if (version< emacs-version "24.4")
@@ -529,11 +608,16 @@
 ;;   C-c i indent region
 ;;   M-; commenting
 ;;   replaces search and replace: M-% and C-M-% for regexp
-;;   C-; - iedit - like multicursor - edit all occurences of in buffer
+;;   C-i - iedit - like multicursor - edit all occurences of in buffer
 ;;   C-a - shoot to beginning of line after whitespace
 ;;
 ;; (require 'setup-ggtags)
 
+(use-package sr-speedbar
+  :config
+  (setq speedbar-show-unknown-files t)
+  (setq sr-speedbar-skip-other-window-p t)
+  )
 
 
 ;; -----------------------------------------------------------------;;
@@ -566,7 +650,10 @@
    (quote
     (helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
- '(safe-local-variable-values (quote ((cmake-ide-build-dir . "~/code/onboard/build"))))
+ '(safe-local-variable-values
+   (quote
+    ((cmake-ide-build-dir . "~/radar/build")
+     (cmake-ide-build-dir . "~/code/onboard/build"))))
  '(save-place t nil (saveplace))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)

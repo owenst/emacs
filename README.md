@@ -6,6 +6,20 @@ This repo is meant to replace your `~/.emacs.d` folder. It contains an `init.el`
 * ./configure.sh
   * this links .bash_aliases and sources the aliases and bashrc
   * you may have to remove the current .bashrc, .bash_aliases, .emacs or other files
+* Install gnu-global to generate gtags for emacs as C++ IDE:
+  * linux: `$ apt install global`
+  * mac: `brew install global`
+  * cd to project directory base: `$ gtags`
+* After installing emacs, open emacs and installation will begin. Watch the setup and check *Messages* and *Warnings* and fix as appropriate
+* To install emacs 26 (or 25) on Ubuntu 16.04 use kevin kelly's repo:
+  * remove any emacs installation: `sudo apt remove emacs`
+  * `sudo add-apt-repository ppa:kelleyk/emacs`
+    * if add-apt-repository not installed: `apt-get install software-properties-common`
+  * `sudo apt update`
+  * `sudo apt install emacs26`
+  * Now set an alias for this
+    * alias emacs="emacs26"
+
 
 ## Packages:
 ### Installation
@@ -69,6 +83,9 @@ fi
   * Under profile->keyboard: scroll to bottom and click Use Option as Meta
   
 ## Notes on shell:
+* WEATHER: 
+  * [wttr.in](https://wttr.in/)
+  * $ curl wttr.in or $ curl wttr.in/sanfrancisco?n
 * in .bashrc or .bash_aliases:
 * alias dirs="dirs -v"
 * Then use

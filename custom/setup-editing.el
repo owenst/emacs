@@ -91,7 +91,7 @@
 
 ;; PACKAGE: iedit
 (use-package iedit
-  :bind (("C-;" . iedit-mode))
+  :bind (("C-i" . iedit-mode))
   :init
   (setq iedit-toggle-key-default nil))
 
