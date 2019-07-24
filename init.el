@@ -272,8 +272,8 @@
 
 
 
-;; Compilation - set f4 to call compile automatically
-(global-set-key (kbd "<f4>") (lambda ()
+;; Compilation - set to call compile automatically
+(global-set-key (kbd "C-c c") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
                                (call-interactively 'compile)))
