@@ -83,6 +83,7 @@ fi
   * Under profile->keyboard: scroll to bottom and click Use Option as Meta
   
 ## Notes on shell:
+* WEATHER: $ curl wttr.in or $ curl wttr.in/sanfrancisco?n
 * in .bashrc or .bash_aliases:
 * alias dirs="dirs -v"
 * Then use
