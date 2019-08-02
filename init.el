@@ -273,6 +273,7 @@
 
 
 ;; Compilation - set to call compile automatically
+;; To reset command: C-h v compile-command and apply for session
 (global-set-key (kbd "C-c c") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
