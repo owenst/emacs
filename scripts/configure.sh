@@ -86,7 +86,7 @@ then
     echo
     echo '# WEATHER'                                  >> ~/.bashrc
     echo 'curl wttr.in?n'                             >> ~/.bashrc
-    echo 'curl wttr.in/sanfrancisco?n'                >> ~/.bashrc
+    echo '#curl wttr.in/sanfrancisco?n'               >> ~/.bashrc
 fi
 
 echo
