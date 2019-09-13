@@ -3,3 +3,9 @@
 \#*#
 git_fix_author.sh
 *~
+
+.emacs.desktop
+.emacs.desktop.lock
+elpa/
+recentf
+semanticdb/
