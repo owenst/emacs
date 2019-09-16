@@ -25,7 +25,8 @@
 ;; setup-editing.el
 ;;   M-o insert line
 ;;   C-c i indent region
-;;   C-i - iedit - like multicursor - edit all occurences of in buffer
+;;   C-; - iedit - like multicursor - edit all occurences of in buffer
+;;     C-S-i : previous occurences
 ;; helm and related :
 ;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
@@ -79,7 +80,7 @@
 ;;   M-x buf-move-left / right / up / down
 
 ;; Grep:
-;;   M-x grep. Can use as rgrep to search recursively (add -r after grep)
+;;   M-x grep. Can use as rgrep to search recursively (with -r option)
 
 ;; Buffer Menu: C-x C-b: Dired like buffer menu
 ;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
@@ -99,7 +100,7 @@
 ;; Files
 ;;   Save modified: C-x-s
 ;;   Autosave: #filename. Recover: M-x recover-file
-;;   Revert Buffer when changed elsewhere: M-x revert-buffer
+;;   Revert Buffer when changed elsewhere: M-x revert-buffer (reload)
 ;;   C-x C-r : find recent (uses recentf)
 
 ;; Windows / Buffer
@@ -609,9 +610,9 @@
 ;;   C-c i indent region
 ;;   M-; commenting
 ;;   replaces search and replace: M-% and C-M-% for regexp
-;;   C-i - iedit - like multicursor - edit all occurences of in buffer
+;;   C-; - iedit - like multicursor - edit all occurences of in buffer
 ;;   C-a - shoot to beginning of line after whitespace
-;;
+
 ;; (require 'setup-ggtags)
 
 (use-package sr-speedbar
@@ -649,7 +650,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (flymake-go helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values
    (quote
