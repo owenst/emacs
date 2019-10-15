@@ -90,10 +90,12 @@
   (global-set-key (kbd "C-M-%") 'anzu-query-replace-regexp))
 
 ;; PACKAGE: iedit
-(use-package iedit
-  :bind (("C-i" . iedit-mode))
-  :init
-  (setq iedit-toggle-key-default nil))
+(use-package iedit)
+ ;; :bind (("C-;" . iedit-mode))
+ ;;  :init
+ ;;  (setq iedit-toggle-key-default nil)
+ ;; )
+
 
 ;; Customized functions
 (defun prelude-move-beginning-of-line (arg)
