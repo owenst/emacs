@@ -16,3 +16,6 @@ ido.last
 network-security.data
 projectile-bookmarks.eld
 projectile.cache
+
+places
+session.*
