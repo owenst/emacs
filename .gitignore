@@ -9,3 +9,10 @@ git_fix_author.sh
 elpa/
 recentf
 semanticdb/
+url/
+
+ede-projects.el
+ido.last
+network-security.data
+projectile-bookmarks.eld
+projectile.cache
