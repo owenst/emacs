@@ -49,7 +49,7 @@
 
           ;; helm-candidate-number-limit 500 ; limit the number of displayed canidates
           helm-ff-file-name-history-use-recentf t
-          helm-move-to-line-cycle-in-source t ; move to end or beginning of source when reaching top or bottom of source.
+          helm-move-to-line-cycle-in-source nil ;t or nil move to end or beginning of source when reaching top or bottom of source.
           helm-buffer-skip-remote-checking t
 
           helm-mode-fuzzy-match t
@@ -119,6 +119,12 @@
       ;; From helm-swoop to helm-multi-swoop-all
       (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
 
+      ;; Move up and down like isearch
+      ;; (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+      ;; (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+      ;; (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+      ;; (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+
       ;; Save buffer when helm-multi-swoop-edit complete
       (setq helm-multi-swoop-edit-save t)
 
@@ -130,6 +136,22 @@
 
       ;; If nil, you can slightly boost invoke speed in exchange for text color
       (setq helm-swoop-speed-or-color t))
+
+      ;; If there is no symbol at the cursor, use the last used words instead.
+      (setq helm-swoop-pre-input-function
+            (lambda ()
+              (let (($pre-input (thing-at-point 'symbol)))
+                (if (eq (length $pre-input) 0)
+                    helm-swoop-pattern ;; this variable keeps the last used words
+                  $pre-input))))
+
+      ;; If a symbol or phrase is selected, use it as the initial query.
+      ;; THIS SEEMS TO MESS UP THE FIND-AT-POINT FUNCTIONALITY
+      ;; (setq helm-swoop-pre-input-function
+      ;;       (lambda ()
+      ;;         (if mark-active
+      ;;             (buffer-substring-no-properties (mark) (point))
+      ;;           "")))
 
     (helm-mode 1)
 
