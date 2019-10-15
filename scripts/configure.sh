@@ -79,15 +79,15 @@ then
 fi
 
 # These should only be run once, hence inclusion guards:
-if ! grep -q "# WEATHER" ~/.bashrc
-then
-    echo
-    echo "Adding to bashrc"
-    echo
-    echo '# WEATHER'                                  >> ~/.bashrc
-    echo 'curl wttr.in?n'                             >> ~/.bashrc
-    echo 'curl wttr.in/sanfrancisco?n'                >> ~/.bashrc
-fi
+# if ! grep -q "# WEATHER" ~/.bashrc
+# then
+#     echo
+#     echo "Adding to bashrc"
+#     echo
+#     echo '# WEATHER'                                  >> ~/.bashrc
+#     echo 'curl wttr.in?n'                             >> ~/.bashrc
+#     echo 'curl wttr.in/sanfrancisco?n'                >> ~/.bashrc
+# fi
 
 echo
 echo "sourcing bashrc"
