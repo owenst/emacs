@@ -28,9 +28,14 @@
 ;;   C-i - iedit - like multicursor - edit all occurences of in buffer
 ;; helm and related :
 ;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
+;;   SWOOP
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
-;;   M-i to interactively change the buffer (from isearch to swoop or during helm)
+;;     C-c C-e : enter the edit mode. Before enter the edit mode, you can choose
+;;       some lines marked by C-SPC or M-SPC to edit. Apply changes to original buffer type C-x C-s.
+;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
+;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
 ;;   M-., M-, go to def and pop
+;; Dynamic completion: M-/
 
 
 
@@ -94,6 +99,9 @@
 ;;    C-h m  :  help on current mode
 ;;    View faces under point: C-u C-x =
 ;;    C-h v load-path : view info on load path - C-h v is describe variable
+;; Customization:
+;; Easy Customization:
+;; M-x customize-option
 
 
 ;; Files
@@ -259,6 +267,9 @@
 (setq-default indent-tabs-mode nil)
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 4)
+
+;; Need to rebind tab-to-tab-stop
+;;(global-set-key (kbd "C-t") 'tab-to-tab-stop)
 
 
 
@@ -649,7 +660,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (dockerfile-mode cuda-mode helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values
    (quote
