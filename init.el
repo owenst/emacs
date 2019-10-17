@@ -108,7 +108,9 @@
 ;; Files
 ;;   Save modified: C-x-s
 ;;   Autosave: #filename. Recover: M-x recover-file
+;;  Reread from source:
 ;;   Revert Buffer when changed elsewhere: M-x revert-buffer (reload)
+;;   Global Auto M-x global-auto-revert-buffer
 ;;   C-x C-r : find recent (uses recentf)
 
 ;; Windows / Buffer
