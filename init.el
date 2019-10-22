@@ -3,6 +3,7 @@
 ;; TODO:
 ;; 1) set code completion to use 0 characters
 ;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
+;; 3) Remove parsing - what package? Semantic?
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
@@ -112,6 +113,9 @@
 ;;   Revert Buffer when changed elsewhere: M-x revert-buffer (reload)
 ;;   Global Auto M-x global-auto-revert-buffer
 ;;   C-x C-r : find recent (uses recentf)
+;; Remote files: https://www.gnu.org/software/emacs/manual/html_node/emacs/Remote-Files.html
+;;   /ftp.:user@host#port:/path/to/filename
+;;   can also use ssh or scp to access remote file
 
 ;; Windows / Buffer
 ;;   Switch: C-x-o
