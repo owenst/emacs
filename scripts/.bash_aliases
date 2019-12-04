@@ -17,6 +17,7 @@ case $OS in
         alias open=xdg-open
         alias ll='ls -lahF --color=auto'
         alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
+        alias spotify="spotify --force-device-scale-factor=2"
         ;;
     *)
 	    echo "Unknown OS"
