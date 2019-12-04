@@ -54,6 +54,11 @@ if test -s $git_completion_script
 then
     echo "git completions found"
     source $git_completion_script
+else
+    echo "Need to install git completions"
+    echo "brew install bash-completion"
+    echo "OR"
+    echo "sudo apt-get install bash-completion"
 fi
 
 
@@ -73,9 +78,9 @@ then
     echo '# ONLY ONCE'                                >> ~/.bashrc
     echo 'set BC_ENV_ARGS=~/.bc; export BC_ENV_ARGS'  >> ~/.bashrc
     echo 'export PATH=$PATH:/usr/bin/llvm-config'     >> ~/.bashrc
-    echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
     echo 'export VISUAL=nano'                         >> ~/.bashrc
     echo 'export EDITOR="$VISUAL"'                    >> ~/.bashrc
+    echo 'source /usr/local/bin/virtualenvwrapper.sh' >> ~/.bashrc
 fi
 
 # These should only be run once, hence inclusion guards:
