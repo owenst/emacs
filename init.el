@@ -33,7 +33,8 @@
 ;;   SWOOP
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
 ;;     C-c C-e : enter the edit mode. Before enter the edit mode, you can choose
-;;       some lines marked by C-SPC or M-SPC to edit. Apply changes to original buffer type C-x C-s.
+;;       some lines marked by C-SPC or M-SPC to edit.
+;;       C-x C-s: Apply changes to original buffer type.
 ;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
 ;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
 ;;   M-., M-, go to def and pop
