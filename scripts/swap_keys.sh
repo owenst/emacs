@@ -6,7 +6,9 @@ echo "Usage:"
 echo "0 : return to normal config"
 echo "1 : make Caps Lock send Alt L"
 echo "2 : swap Super and Alt_L"
-echo ""
+echo "E.g.:"
+echo "  $0 2"
+
 
 if [ "$1" == "0" ]
 then
