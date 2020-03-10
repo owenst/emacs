@@ -1,9 +1,11 @@
 ;; Trevors .emacs file 2018-10-02
 
+;; Refresh / Reload / Source current file after change: M-x load-file <ENTER>
+
 ;; TODO:
 ;; 1) set code completion to use 0 characters
 ;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
-;; 3) Remove parsing - what package? Semantic?
+;; 3) Remove parsing - set (global-semantic-idle-scheduler-mode nil)
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
@@ -23,21 +25,12 @@
 
 
 ;; NEW TO LEARN:
+;; imenu helm-imenu: to see list of functions in current buffer
 ;; setup-editing.el
 ;;   M-o insert line
 ;;   C-c i indent region
 ;;   C-; - iedit - like multicursor - edit all occurences of in buffer
 ;;     C-S-i : previous occurences
-;; helm and related :
-;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
-;;   SWOOP
-;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
-;;     C-c C-e : enter the edit mode. Before enter the edit mode, you can choose
-;;       some lines marked by C-SPC or M-SPC to edit.
-;;       C-x C-s: Apply changes to original buffer type.
-;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
-;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
-;;   M-., M-, go to def and pop
 ;; Dynamic completion: M-/
 
 
@@ -73,7 +66,7 @@
 ;;   Run Macro: C-x e
 ;;   Now use ESC-500 + CMD to repeat 500 times
 
-;; Searching
+;; -------  Searching  --------
 ;;   Find and Replace: M-%, or C-M-% for regexp search with setup-editing.el
 ;;     Then y: replace, n: no, q: exit, !:replace all
 ;;   Search under point: C-s C-w, C-s . , C-r reverse search
@@ -81,7 +74,20 @@
 ;;     C-s C-s Repeat search
 ;;     M-i to hand this over to swoop
 ;;  Searching Directories: C-x d OR M-x dired
+;;  SWOOP
 ;;  Swoop search C-c s
+;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
+;;     C-c C-e : enter the edit mode. Before enter the edit mode, you can choose
+;;       some lines marked by C-SPC or M-SPC to edit.
+;;       C-x C-s: Apply changes to original buffer type.
+;;   helm and related :
+;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
+;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
+;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
+;;   M-., M-, go to def and pop
+
+
+
 
 ;; Buffer swap:
 ;;   M-x buf-move-left / right / up / down
@@ -621,7 +627,34 @@
     (require 'setup-ivy-counsel)) ;; -> can't install counsel or cousel-projectile. Helm should be fine.
 (require 'setup-helm)
 (require 'setup-helm-gtags)
-(require 'setup-cedet)
+;; -------------- (require 'setup-cedet) -----------------
+;; moved to init file for greater control over semantic parsing
+(require 'cc-mode)
+;; DISABLE SEMANTIC
+(when 1
+  (require 'semantic)
+
+  (global-semanticdb-minor-mode nil)
+  (global-semantic-idle-scheduler-mode nil)  ;; DISABLE AUTOMATIC PARSING AFTER CHANGE
+  (global-semantic-stickyfunc-mode nil)
+
+  (semantic-mode nil)
+
+  (defun alexott/cedet-hook ()
+    (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
+    (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
+
+  (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+  (add-hook 'c-mode-hook 'alexott/cedet-hook)
+  (add-hook 'c++-mode-hook 'alexott/cedet-hook)
+
+  ;; Enable EDE only in C/C++
+  (require 'ede)
+  (global-ede-mode)
+
+)
+;; ---------------------------------------------------------
+
 (require 'setup-editing)
 ;; -> This makes yank and pop work better and includes
 ;;   M-o insert line
