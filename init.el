@@ -701,7 +701,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (dockerfile-mode cuda-mode flymake-go helm-projectile sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values
    (quote
