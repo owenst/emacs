@@ -2,10 +2,25 @@
 
 ;; Refresh / Reload / Source current file after change: M-x load-file <ENTER>
 
+
 ;; TODO:
 ;; 1) set code completion to use 0 characters
 ;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
 ;; 3) Remove parsing - set (global-semantic-idle-scheduler-mode nil)
+
+
+;; Errors and fixes:
+;; - "Company backend 'company-clang' could not be initialized: Company found no clang executable"
+;;  - install clang and then symbolic link it to /usr/bin/clang (ln -s /usr/bin/clang-9 /usr/bin/clang)
+;;  - https://emacs.stackexchange.com/questions/19306/how-do-i-get-company-mode-to-recognize-clang
+;;
+;; - M-; runs the command iedit-toggle-selection (found in ‘iedit.el’)
+;;  - Use C-; to exit iedit-mode
+
+;; Ubuntu fixes:
+;; Gnome Shell Extensions add on to Chrome to install:
+;;  - Dash to Panel
+
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
@@ -29,8 +44,6 @@
 ;; setup-editing.el
 ;;   M-o insert line
 ;;   C-c i indent region
-;;   C-; - iedit - like multicursor - edit all occurences of in buffer
-;;     C-S-i : previous occurences
 ;; Dynamic completion: M-/
 
 
@@ -296,7 +309,7 @@
 (setq inhibit-startup-message t)
 
 
-
+;; -------------------   setup-general.el  ------------------------------------------
 ;; Compilation - set to call compile automatically
 ;; To reset command: C-h v compile-command and apply for session
 (global-set-key (kbd "C-c c") (lambda ()
@@ -314,6 +327,7 @@
  gdb-show-main t
  )
 
+;; -----------------------------------------------------------------------------------
 ;; Insertion of Dates.
 (defun insert-date-string ()
   "Insert a nicely formated date string."
@@ -630,29 +644,28 @@
 ;; -------------- (require 'setup-cedet) -----------------
 ;; moved to init file for greater control over semantic parsing
 (require 'cc-mode)
-;; DISABLE SEMANTIC
-(when 1
-  (require 'semantic)
 
-  (global-semanticdb-minor-mode nil)
-  (global-semantic-idle-scheduler-mode nil)  ;; DISABLE AUTOMATIC PARSING AFTER CHANGE
-  (global-semantic-stickyfunc-mode nil)
+;; SEMANTIC stuff --- was not easy to disable. Suggest using the database
+(require 'semantic)
 
-  (semantic-mode nil)
+(global-semanticdb-minor-mode t)
+(global-semantic-idle-scheduler-mode t)  ;; DISABLE AUTOMATIC PARSING AFTER CHANGE
+(global-semantic-stickyfunc-mode t)
 
-  (defun alexott/cedet-hook ()
-    (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
-    (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
+(semantic-mode t)
 
-  (add-hook 'c-mode-common-hook 'alexott/cedet-hook)
-  (add-hook 'c-mode-hook 'alexott/cedet-hook)
-  (add-hook 'c++-mode-hook 'alexott/cedet-hook)
+(defun alexott/cedet-hook ()
+  (local-set-key "\C-c\C-j" 'semantic-ia-fast-jump)
+  (local-set-key "\C-c\C-s" 'semantic-ia-show-summary))
 
-  ;; Enable EDE only in C/C++
-  (require 'ede)
-  (global-ede-mode)
+(add-hook 'c-mode-common-hook 'alexott/cedet-hook)
+(add-hook 'c-mode-hook 'alexott/cedet-hook)
+(add-hook 'c++-mode-hook 'alexott/cedet-hook)
 
-)
+;; Enable EDE only in C/C++
+(require 'ede)
+(global-ede-mode)
+
 ;; ---------------------------------------------------------
 
 (require 'setup-editing)
@@ -661,8 +674,13 @@
 ;;   C-c i indent region
 ;;   M-; commenting
 ;;   replaces search and replace: M-% and C-M-% for regexp
+;;   C-a - shoot to beginning of line after whitespace (instead of just beginning)
+;;
+;;  iedit-mode
+;;     C-; - iedit-mode - like multicursor - edit all occurences of in buffer
+;;     C-S-i : previous occurences
+;;     M-; toggle selection - exit iedit mode (C-;) to disable
 ;;   C-; - iedit - like multicursor - edit all occurences of in buffer
-;;   C-a - shoot to beginning of line after whitespace
 
 ;; (require 'setup-ggtags)
 
@@ -701,7 +719,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    (quote
-    (dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
+    (company-c-headers company dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
  '(reb-re-syntax (quote string))
  '(safe-local-variable-values
    (quote
