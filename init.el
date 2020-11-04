@@ -14,7 +14,7 @@
 ;;  - install clang and then symbolic link it to /usr/bin/clang (ln -s /usr/bin/clang-9 /usr/bin/clang)
 ;;  - https://emacs.stackexchange.com/questions/19306/how-do-i-get-company-mode-to-recognize-clang
 ;;
-;; - M-; runs the command iedit-toggle-selection (found in ‘iedit.el’)
+;; - C-; runs the command iedit-toggle-selection (found in ‘iedit.el’)
 ;;  - Use C-; to exit iedit-mode
 
 ;; Ubuntu fixes:
@@ -37,7 +37,6 @@
 ;;   C-u 4 : repeat the next command 4 times
 ;;   ESC-4 : repeat the next command 4 times
 ;; Comment M-; (on selected region)
-
 
 ;; NEW TO LEARN:
 ;; imenu helm-imenu: to see list of functions in current buffer
@@ -435,8 +434,11 @@
 
 ;; ELPY
 (use-package elpy
-  :config
+  :ensure t
+  :init
   (elpy-enable)
+  :config
+  (setq elpy-rpc-python-command "python3")
   )
 
 ;; IDO: interactively do things:
