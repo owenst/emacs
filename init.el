@@ -9,18 +9,19 @@
 ;; 1) set code completion to use 0 characters
 ;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
 ;; 3) Remove parsing - set (global-semantic-idle-scheduler-mode nil)
-;; FIND DEF
-;; Autocomp in file
-;;
 
-
-;; Errors and fixes:
+;; ERRORS: (and fixes)
 ;; - "Company backend 'company-clang' could not be initialized: Company found no clang executable"
 ;;  - install clang and then symbolic link it to /usr/bin/clang (ln -s /usr/bin/clang-9 /usr/bin/clang)
 ;;  - https://emacs.stackexchange.com/questions/19306/how-do-i-get-company-mode-to-recognize-clang
 ;;
 ;; - C-; runs the command iedit-toggle-selection (found in ‘iedit.el’)
 ;;  - Use C-; to exit iedit-mode
+;; - FIND DEF SEE ELPY
+;; - Failed to initialize color list unarchiver: Error Domain=NSCocoaErrorDomain Code=4864
+;;    Solution: delete ~/Library/Colors/Emacs.clr and restart
+;;    Better: add (delete-file "~/Library/Colors/Emacs.clr") to end of this file
+
 
 ;; Ubuntu fixes:
 ;; Gnome Shell Extensions add on to Chrome to install:
@@ -490,7 +491,9 @@
 ;;   Show Docs C-c C-d
 ;; ERRORS:
 ;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
-;; Go to definition - must run jedi:setup then install server and use C-c . and M-, for defs
+;;   FIND DEFGo to definition - must run jedi:setup then install server and use C-c . and M-, for defs
+;;     SOLN: 1) downgraded to Jedi 0.17.2 per and only run jedi:setup
+;;           2) DO NOT start virtual env first - start inside emacs M-x pyvenv-workon
 
 (use-package elpy
   :ensure t
