@@ -104,7 +104,7 @@ echo
 echo "Configuring git for work and locally for emacs repo"
 
 git config --global user.name "Trevor"
-git config --global user.email "trevor@airspace.co"
+git config --global user.email "trevor.owens@gmail.com"
 git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
 git config --global credential.helper 'cache --timeout 300000'
 git config user.name "owenst"

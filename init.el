@@ -1,12 +1,17 @@
-;; Trevors .emacs file 2018-10-02
-
+;; Trevors .emacs file 2021-06-09
+;; MacOS: $ brew install homebrew/cask/emacs
 ;; Refresh / Reload / Source current file after change: M-x load-file <ENTER>
+;; UPDATE Packages: M-x packg-list-pkgs, U to Update, ~ to Delete obsolete  ~, x to eXecute
+;;  THEN RECOMPILE .elc M-: (byte-recompile-directory package-user-dir nil 'force)
 
 
 ;; TODO:
 ;; 1) set code completion to use 0 characters
 ;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
 ;; 3) Remove parsing - set (global-semantic-idle-scheduler-mode nil)
+;; FIND DEF
+;; Autocomp in file
+;;
 
 
 ;; Errors and fixes:
@@ -42,8 +47,8 @@
 ;; imenu helm-imenu: to see list of functions in current buffer
 ;; setup-editing.el
 ;;   M-o insert line
-;;   C-c i indent region
-;; Dynamic completion: M-/
+;;   C-c i indent region - NOT WORKING
+;; Dynamic completion: M-/ - currently comment
 
 
 
@@ -76,7 +81,7 @@
 ;;     Do Stuff
 ;;   End:    C-x )
 ;;   Run Macro: C-x e
-;;   Now use ESC-500 + CMD to repeat 500 times
+;;   Now use ESC-500 + CMD to repeat 500 times (or M-u 500)
 
 ;; -------  Searching  --------
 ;;   Find and Replace: M-%, or C-M-% for regexp search with setup-editing.el
@@ -99,17 +104,37 @@
 ;;   M-., M-, go to def and pop
 
 
-
+;; Find on command line:
+;;  $ find . -name "filename" -print
 
 ;; Buffer swap:
+;;   M-x buf-move then arrows
 ;;   M-x buf-move-left / right / up / down
 
 ;; Grep:
-;;   M-x grep. Can use as rgrep to search recursively (with -r option)
+;;   M-X grep. Can use as rgrep to search recursively (with -r option)
+;;   Use like: grep -nH --null -r -e 'foo' .
+;;     searches for foo recursively starting at this directory
+;;   -n : line numbers
+;;   -H : file name headers
+;;   --null : zero byte after filename
+;;   -r recursively
+;;   -e expression
+;;  Can use prefix C-u to prefix grep
+;;  Compilation mode to move around
+;;    M-g n / p OR C-x ` or M-x next-error or RET in grep buffer
+;;  See also: rgrep for separate prompts
 
-;; Buffer Menu: C-x C-b: Dired like buffer menu
-;;   use D to mark for deletion, S to mark for save, X to execute, Q to quit
+;; Buffer Menu:
+;;   WITH HELM: M-x list-buffers
+;;   NO HELM: C-x C-b: Dired like buffer menu
+;;   Press:
+;;     d to mark for deletion,
+;;     s to mark for save,
+;;     x to execute,
+;;     q to quit
 ;;   C-x k to kill current buffer (removes)
+;; Dired: C-x d : To see directory and navigate
 
 ;; Help:
 ;;    C-h ?
@@ -119,7 +144,8 @@
 ;;    C-h k KEYSTROKE: describes keystroke
 ;;    C-h m  :  help on current mode
 ;;    View faces under point: C-u C-x =
-;;    C-h v load-path : view info on load path - C-h v is describe variable
+;;    Describe Variable: C-h v
+;;      C-h v load-path : view info on load path
 ;; Customization:
 ;; Easy Customization:
 ;; M-x customize-option
@@ -194,7 +220,7 @@
 
 ;; Emacs-Lisp
 ;;  Eval region: M-x eval-region
-;;  Eval in mini-buffer M-:
+;;  Eval in mini-buffer M-: // deprecated
 ;;  Eval at point C-x C-e
 
 ;; Modes
@@ -432,14 +458,63 @@
   )
 
 
+;; (use-package jedi
+;;   :init (setq jedi:complete-on-dot t)
+;;   :hook (python-mode-hook jedi:setup)
+;;   :config (message "*******     Run Meta-x jedi:install-server      **********")
+;;   )
+;; WARN Looking-back  https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Search.html
+;; In jedi package somewhere
+
+
 ;; ELPY
+;;   Evaluate
+;;     C-RET: Evaluate line and nested lines
+;;     Run in buffer: C-c C-c  (Prefix with C-u to include main) - This is a feature
+;;     eval  C-c C-y e, b(buffer)
+;;   Shell     C-c C-z
+;;   Find
+;;     file in project C-c C-f
+;;     symbom in project C-c C-s
+;;   Completion M-TAB
+;;   GoTo
+;;     Def     M-.
+;;     PopDef  M-*
+;;     Def in other window C-x 4 M-.
+;;   Syntax
+;;     Next  C-c C-n/p next/previous error
+;;     Check C-c C-v
+;;   Reformat  C-c C-r f
+;;   Refactor  C-c C-e
+;;   Debug pdb C-c C-u d
+;;   Show Docs C-c C-d
+;; ERRORS:
+;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
+;; Go to definition - must run jedi:setup then install server and use C-c . and M-, for defs
+
 (use-package elpy
   :ensure t
   :init
   (elpy-enable)
+  ;; (setq python-shell-interpreter "python3")
+  ;; (setq python-shell-interpreter-args "-i")
+  (setq python-shell-interpreter "jupyter"
+        python-shell-interpreter-args "console --simple-prompt"
+        python-shell-prompt-detect-failure-warning nil)
+  (add-to-list 'python-shell-completion-native-disabled-interpreters
+               "jupyter")
   :config
-  (setq elpy-rpc-python-command "python3")
+  ;; (defun elpy-goto-definition-or-rgrep ()
+  ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
+  ;;   (interactive)
+  ;;   (ring-insert find-tag-marker-ring (point-marker))
+  ;;   (condition-case nil (elpy-goto-definition)
+  ;;     (error (elpy-rgrep-symbol
+  ;;             (concat "\\(def\\|class\\)\s" (thing-at-point 'symbol) "(")))))
+  ;; :bind ("M-." . elpy-goto-definition-or-rgrep)
+  :bind ("C-c f" . elpy-format-code)
   )
+
 
 ;; IDO: interactively do things:
 ;; (use-package ido
@@ -715,19 +790,17 @@
    [default default default italic underline success warning error])
  '(blink-cursor-mode t)
  '(column-number-mode t)
- '(custom-enabled-themes (quote (wombat)))
+ '(custom-enabled-themes '(wombat))
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
  '(package-selected-packages
-   (quote
-    (company-c-headers company dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper ws-butler dtrt-indent undo-tree volatile-highlights markdown-mode+ markdown-mode cmake-mode multiple-cursors elpy)))
- '(reb-re-syntax (quote string))
+   '(jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
+ '(reb-re-syntax 'string)
  '(safe-local-variable-values
-   (quote
-    ((cmake-ide-build-dir . "~/radar/build")
-     (cmake-ide-build-dir . "~/code/onboard/build"))))
- '(save-place t nil (saveplace))
+   '((cmake-ide-build-dir . "~/radar/build")
+     (cmake-ide-build-dir . "~/code/onboard/build")))
+ '(save-place-mode t nil (saveplace))
  '(scroll-bar-mode nil)
  '(show-paren-mode t)
  '(tool-bar-mode nil))
