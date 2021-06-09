@@ -45,8 +45,8 @@ then
     # \e[0;31m\ sets the color to red
     c_git_dirty='\[\e[0;31m\]'
     # source $BASH_IT/bash_it.sh
+
     # PS1 is the variable for the prompt you see everytime you hit enter
-    # virtual_prompt="dicks"
     # PROMPT_COMMAND='PS1="`basename "$VIRTUAL_ENV"` ${c_path}\W${c_reset}$(git_prompt) $ "'
     PROMPT_COMMAND='PS1="$(in_pyvenv)${c_path}\W${c_reset}$(git_prompt) $ "'
     export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
@@ -60,7 +60,6 @@ then
             echo "(`basename "$VIRTUAL_ENV"`) "
         fi
     }
-
 
     # determines if the git branch you are on is clean or dirty
     git_prompt ()
