@@ -30,7 +30,6 @@ alias ggc="git commit -m"
 alias gga="git add"
 alias ggd="git diff"
 
-
 # Adding in a git based colorful prompt
 
 if [ $OS = "Darwin" ]
@@ -47,7 +46,7 @@ then
     c_git_dirty='\[\e[0;31m\]'
     # source $BASH_IT/bash_it.sh
     # PS1 is the variable for the prompt you see everytime you hit enter
-    PROMPT_COMMAND='PS1="${c_path}\W${c_reset}$(git_prompt) $ "'
+    # PROMPT_COMMAND='PS1="${c_path}\W${c_reset}$(git_prompt) $ "'
     export PS1='\n\[\033[0;31m\]\W\[\033[0m\]$(git_prompt)\[\033[0m\]:> '
 
     # determines if the git branch you are on is clean or dirty
