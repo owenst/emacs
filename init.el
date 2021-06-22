@@ -128,6 +128,7 @@
 
 ;; Buffer Menu:
 ;;   WITH HELM: M-x list-buffers
+;;     C-c d: delete buffer
 ;;   NO HELM: C-x C-b: Dired like buffer menu
 ;;   Press:
 ;;     d to mark for deletion,
@@ -458,16 +459,6 @@
   :ensure t
   )
 
-
-;; (use-package jedi
-;;   :init (setq jedi:complete-on-dot t)
-;;   :hook (python-mode-hook jedi:setup)
-;;   :config (message "*******     Run Meta-x jedi:install-server      **********")
-;;   )
-;; WARN Looking-back  https://www.gnu.org/software/emacs/manual/html_node/elisp/Regexp-Search.html
-;; In jedi package somewhere
-
-
 ;; ELPY
 ;;   Evaluate
 ;;     C-RET: Evaluate line and nested lines
@@ -491,21 +482,17 @@
 ;;   Show Docs C-c C-d
 ;; ERRORS:
 ;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
-;;   FIND DEFGo to definition - must run jedi:setup then install server and use C-c . and M-, for defs
-;;     SOLN: 1) downgraded to Jedi 0.17.2 per and only run jedi:setup
+;;   FIND DEFGo to definition - jedi:setup install server (hack: use C-c . and M-,)
+;;     SOLN: 1) downgraded to Jedi 0.17.2 and only run jedi:setup
+;;             - Must do so in rpc-venc: $ source /Users/trevor/.emacs.d/elpy/rpc-venv/bin/activate
 ;;           2) DO NOT start virtual env first - start inside emacs M-x pyvenv-workon
 
 (use-package elpy
   :ensure t
   :init
   (elpy-enable)
-  ;; (setq python-shell-interpreter "python3")
-  ;; (setq python-shell-interpreter-args "-i")
-  (setq python-shell-interpreter "jupyter"
-        python-shell-interpreter-args "console --simple-prompt"
-        python-shell-prompt-detect-failure-warning nil)
-  (add-to-list 'python-shell-completion-native-disabled-interpreters
-               "jupyter")
+  (setq python-shell-interpreter "python3")
+  (setq python-shell-interpreter-args "-i")
   :config
   ;; (defun elpy-goto-definition-or-rgrep ()
   ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
@@ -517,33 +504,6 @@
   ;; :bind ("M-." . elpy-goto-definition-or-rgrep)
   :bind ("C-c f" . elpy-format-code)
   )
-
-
-;; IDO: interactively do things:
-;; (use-package ido
-;;   :init
-;;   (setq ido-enable-flex-matching t)
-;;   (setq ido-everywhere t)
-;;   :config
-;;   (ido-mode t)
-;;   :ensure t
-;;   )
-
-;; ;; FLX-IDO: fuzzy matching for ido
-;; ;;   It is suggested to add fly-ido to make projectile matching fuzzy
-;; ;;   https://github.com/lewang/flx
-;; (use-package flx-ido
-;;   :ensure t
-;;   )
-;; ;; Now make ido work with flx's fuzzy matching:
-;; (require 'flx-ido)
-;; (ido-mode 1)
-;; ;;(ido-everywhere 1)
-;; (flx-ido-mode 1)
-;; ;; disable ido faces to see flx highlights.
-;; (setq ido-enable-flex-matching t)
-;; (setq ido-use-faces nil)
-
 
 
 ;; recentf   From mastering emacs find recent files
@@ -582,19 +542,19 @@
 
 
 
-;; Company
-(use-package company
-  :init
-  (global-company-mode 1)
-  :config
-  (add-hook 'after-init-hook 'global-company-mode)
+;; ;; Company
+;; (use-package company
+;;   :init
+;;   (global-company-mode 1)
+;;   :config
+;;   (add-hook 'after-init-hook 'global-company-mode)
 
   ;; In setup-cedet we are using semantic, so don't delete for autocompletion:
   ;;  (delete 'company-semantic company-backends)
   ;;
   ;; (define-key c-mode-map  [(control tab)] 'company-complete)
   ;; (define-key c++-mode-map  [(control tab)] 'company-complete)
-  )
+  ;; )
 
 ;; Yasnippet - for adding in in code snippets
 (use-package yasnippet
@@ -620,6 +580,7 @@
   (fa-config-default)
   (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   (set-default 'semantic-case-fold t)
+  )
   ;; Add in include paths for searching
   ;; Find include path using "gcc -x c++ -v -E /dev/null"
   ;;(semantic-add-system-include "/usr/local/include" 'c++-mode)
@@ -628,74 +589,12 @@
   ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/usr/include" 'c++-mode)
   ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include" 'c++-mode)
   ;;(semantic-add-system-include "/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks" 'c++-mode)
-  )
+
 ;; fa-jump
 ;; fa-show
 ;; moo-jump-local
 ;; moo-complete
 ;;
-
-
-
-;; Projectile - using helm-projectile instead
-;;   toggle between files with same names but different extensions (e.g. .h <-> .c/.cpp
-;;   replace in project
-;;   multi-occur in project buffers
-;;   grep in project
-;; (use-package projectile
-;;   :init
-;;   (projectile-global-mode)
-;;   (setq projectile-enable-caching t)
-;;   (setq projectile-project-search-path '("~/code/"))
-;;   :ensure t
-;;   )
-
-
-
-
-;; CMAKE-IDE
-;; Use .dir-locals.el in main folder to set cmake-ide-build-dir:
-;; ((nil
-;;  (cmake-ide-build-dir . "~/code/onboard/build")))
-
-;; (add-to-list 'load-path "~/.emacs.d/rtags/src/")
-;; (use-package rtags)
-;; (use-package flycheck)
-;; (use-package auto-complete-clang)
-
-;; ;; Irony
-;; (use-package irony
-;;   :config
-;;   (add-hook 'c++-mode-hook 'irony-mode)
-;;   (add-hook 'c-mode-hook 'irony-mode)
-;;   (add-hook 'objc-mode-hook 'irony-mode)
-;;   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-;;   :ensure t
-;;   )
-
-;; ;; Company-irony
-;; (use-package company-irony
-;;   :ensure t
-;;   )
-
-
-
-;; (use-package cmake-ide
-;;   :requires (rtags)
-;;   :config
-;;   (cmake-ide-setup)
-;;   (setq cmake-ide-rdm-executable "~/.emacs.d/rtags/bin/rdm")
-;;   (setq cmake-ide-rc-executable "~/.emacs.d/rtags/bin/rc")
-;;   (cond    ; Switch on OS
-;;    ((string-equal system-type "darwin") ; Mac OS X
-;;     (setq cmake-ide-flags-c++
-;;    "/usr/local/include:/Library/Developer/CommandLineTools/usr/include/c++/v1:/Library/Developer/CommandLineTools/usr/lib/clang/10.0.0/include:/Library/Developer/CommandLineTools/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/usr/include:/Library/Developer/CommandLineTools/SDKs/MacOSX10.14.sdk/System/Library/Frameworks"))
-;;    ((string-equal system-type "gnu/linux") ; linux
-;;     (setq cmake-ide-flags-c++
-;;    "/usr/include/c++/5:/usr/include/x86_64-linux-gnu/c++/5:/usr/include/c++/5/backward:/usr/lib/gcc/x86_64-linux-gnu/5/include:/usr/local/include:/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed:/usr/include/x86_64-linux-gnu:/usr/include"))
-;;    )
-;;   )
-
 
 
 ;; Multiple cursors
@@ -713,7 +612,10 @@
   )
 
 
-;; C++ IDE stuff from Tuhdo  : http://tuhdo.github.io/c-ide.html
+;; ------------------------------------------------------------------
+;;                   C++ IDE from Tuhdo
+;;            http://tuhdo.github.io/c-ide.html
+;; ------------------------------------------------------------------
 ;;   Emacs demo setup: https://github.com/tuhdo/emacs-c-ide-demo
 ;; Adding in setup lisp scripts
 (add-to-list 'load-path "~/.emacs.d/custom")
