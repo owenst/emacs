@@ -92,17 +92,24 @@
 ;;     C-s C-s Repeat search
 ;;     M-i to hand this over to swoop
 ;;  Searching Directories: C-x d OR M-x dired
-;;  SWOOP
+;;  DIRED
+;;   + add dir
+;;   d mark for deletion
+;;   x execute
+;;   ? help
+;;  SWOOP - https://github.com/emacsorphanage/helm-swoop
 ;;  Swoop search C-c s
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
 ;;     C-c C-e : enter the edit mode. Before enter the edit mode, you can choose
 ;;       some lines marked by C-SPC or M-SPC to edit.
 ;;       C-x C-s: Apply changes to original buffer type.
-;;   helm and related :
+;;  Helm and related :
+;;   C-c d  : delete buffer
 ;;   C-S-o   : toggle btwn .hpp and .cpp : helm-projectile-find-other-file
 ;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
 ;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
 ;;   M-., M-, go to def and pop
+;;
 
 
 ;; Find on command line:
@@ -234,6 +241,7 @@
 ;;   M-x ansi-term
 ;; Web browser
 ;;   M-x eww
+;;     l - back
 
 
 ;; Zygospore
@@ -464,7 +472,8 @@
 ;;     C-RET: Evaluate line and nested lines
 ;;     Run in buffer: C-c C-c  (Prefix with C-u to include main) - This is a feature
 ;;     eval  C-c C-y e, b(buffer)
-;;   Shell     C-c C-z
+;;   Python Shell     C-c C-z
+;;     - previous M-p
 ;;   Find
 ;;     file in project C-c C-f
 ;;     symbom in project C-c C-s
@@ -476,7 +485,7 @@
 ;;   Syntax
 ;;     Next  C-c C-n/p next/previous error
 ;;     Check C-c C-v
-;;   Reformat  C-c C-r f
+;;   Reformat  C-c f - set in setup
 ;;   Refactor  C-c C-e
 ;;   Debug pdb C-c C-u d
 ;;   Show Docs C-c C-d
