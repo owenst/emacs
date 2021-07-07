@@ -483,6 +483,7 @@
 ;; ERRORS:
 ;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
 ;;   FIND DEFGo to definition - jedi:setup install server (hack: use C-c . and M-,)
+;;     May need to first install jedi and then jedi epc server (need virtualenv first). M-x jedi:[re]install-server
 ;;     SOLN: 1) downgraded to Jedi 0.17.2 and only run jedi:setup
 ;;             - Must do so in rpc-venc: $ source /Users/trevor/.emacs.d/elpy/rpc-venv/bin/activate
 ;;           2) DO NOT start virtual env first - start inside emacs M-x pyvenv-workon
