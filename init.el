@@ -1,32 +1,21 @@
 ;; Trevors .emacs file 2021-06-09
 ;; MacOS: $ brew install homebrew/cask/emacs
 ;; Refresh / Reload / Source current file after change: M-x load-file <ENTER>
-;; UPDATE Packages: M-x packg-list-pkgs, U to Update, ~ to Delete obsolete  ~, x to eXecute
+;; UPDATE Packages: M-x packg-list-pkgs, u to Update, ~ to Delete obsolete, x to eXecute
 ;;  THEN RECOMPILE .elc M-: (byte-recompile-directory package-user-dir nil 'force)
 
 
 ;; TODO:
-;; 1) set code completion to use 0 characters
-;; 2) switch to irony and gtags company autocompletion from semantic and gtags - see company
+;; 1) Disable multiple completions at point in Elpy
+;; 2)
 ;; 3) Remove parsing - set (global-semantic-idle-scheduler-mode nil)
 
 ;; ERRORS: (and fixes)
-;; - "Company backend 'company-clang' could not be initialized: Company found no clang executable"
-;;  - install clang and then symbolic link it to /usr/bin/clang (ln -s /usr/bin/clang-9 /usr/bin/clang)
-;;  - https://emacs.stackexchange.com/questions/19306/how-do-i-get-company-mode-to-recognize-clang
-;;
 ;; - C-; runs the command iedit-toggle-selection (found in ‘iedit.el’)
 ;;  - Use C-; to exit iedit-mode
-;; - FIND DEF SEE ELPY
 ;; - Failed to initialize color list unarchiver: Error Domain=NSCocoaErrorDomain Code=4864
 ;;    Solution: delete ~/Library/Colors/Emacs.clr and restart
 ;;    Better: add (delete-file "~/Library/Colors/Emacs.clr") to end of this file
-
-
-;; Ubuntu fixes:
-;; Gnome Shell Extensions add on to Chrome to install:
-;;  - Dash to Panel
-
 
 ;; Notes:
 ;; Change Font Size: C-x C-+/C--
@@ -53,7 +42,9 @@
 
 
 
+
 ;; Marks, Points
+;;  M-h : mark paragraph from point, use consecutively to extend
 ;;  C-SPC set mark
 ;;  C-SPC C-SPC set mark but deactivate region
 ;;  C-u C-SPC pop mark
@@ -382,7 +373,7 @@
                         (other . "stroustrup")))
 
 
-
+;; EXCHANGE POINT AND MARK
 ;; This defines C-x C-x to not activate region when exchanging the
 ;; point and mark So you can use C-SPC C-SPC to set mark deactivate
 ;; region and then move around then jump back without selecting a
@@ -706,6 +697,7 @@
  '(blink-cursor-mode t)
  '(column-number-mode t)
  '(custom-enabled-themes '(wombat))
+ '(fill-column 99)
  '(flymake-start-syntax-check-on-newline nil)
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
