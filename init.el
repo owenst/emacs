@@ -82,8 +82,7 @@
 ;;     C-s M-n [M-p] Use next or previous search in search history
 ;;     C-s C-s Repeat search
 ;;     M-i to hand this over to swoop
-;;  Searching Directories: C-x d OR M-x dired
-;;  DIRED
+;;  DIRED - Searching Directories: C-x d OR M-x dired
 ;;   + add dir
 ;;   d mark for deletion
 ;;   x execute
@@ -338,6 +337,8 @@
 ;; -------------------   setup-general.el  ------------------------------------------
 ;; Compilation - set to call compile automatically
 ;; To reset command: C-h v compile-command and apply for session
+;; C-h f "compile" to see help
+;; Use menu Tools->Compile to set compile command
 (global-set-key (kbd "C-c c") (lambda ()
                                (interactive)
                                (setq-local compilation-read-command nil)
