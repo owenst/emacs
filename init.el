@@ -323,8 +323,9 @@
 ;; Need to rebind tab-to-tab-stop
 ;;(global-set-key (kbd "C-t") 'tab-to-tab-stop)
 
-
-
+;; Stop the fucking dinging
+(setq visible-bell t)
+(setq ring-bell-function 'ignore)
 
 
 ;; Garbage collection default 800kb
@@ -483,7 +484,7 @@
 ;;   Show Docs C-c C-d
 ;; ERRORS:
 ;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
-;;   FIND DEFGo to definition - jedi:setup install server (hack: use C-c . and M-,)
+;;   FIND DEF Go to definition - jedi:setup install server (hack: use C-c . and M-,)
 ;;     May need to first install jedi and then jedi epc server (need virtualenv first). M-x jedi:[re]install-server
 ;;     SOLN: 1) downgraded to Jedi 0.17.2 and only run jedi:setup
 ;;             - Must do so in rpc-venc: $ source /Users/trevor/.emacs.d/elpy/rpc-venv/bin/activate
