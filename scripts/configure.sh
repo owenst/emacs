@@ -7,6 +7,15 @@
 
 # ADD ALIASES, FIND BASHRC and ONLY ONCE are inclusion guards
 
+if [ $SHELL = "/bin/zsh" ]
+then
+    echo "ERROR: This is zsh NOT bash!"
+    echo "This config is ONLY for bash"
+    echo "Run zsh_config.sh"
+    exit 1
+fi
+
+
 OS=$(uname -s)
 
 case $OS in
@@ -103,12 +112,13 @@ echo
 
 echo "Configuring git for work and locally for emacs repo"
 
-git config --global user.name "Trevor"
-git config --global user.email "trevor.owens@gmail.com"
-git config --global alias.hist "log --pretty=format:'%h %ad | [%an] %s%d' --graph --date=short"
-git config --global credential.helper 'cache --timeout 300000'
-git config user.name "owenst"
-git config user.email "164865+owenst@users.noreply.github.com"
+# git config --global user.name "Trevor"
+# git config --global user.email "trevor.owens@gmail.com"
+# git config --global alias.hist "log --pretty=format:'%h %ad | [%an] 
+%s%d' --graph --date=short"
+# git config --global credential.helper 'cache --timeout 300000'
+# git config user.name "owenst"
+# git config user.email "164865+owenst@users.noreply.github.com"
 
 
 echo
