@@ -307,6 +307,8 @@
 ;; -----------------------------------------------------------------;;
 ;; -----------------------------------------------------------------;;
 
+;;The value is in 1/10pt, so 100 will give you 10pt, etc.
+(set-face-attribute 'default nil :height 130)
 
 ;;Save state of emacs:
 (desktop-save-mode 1)
@@ -331,7 +333,6 @@
 ;; Garbage collection default 800kb
 ;;   If you notice freezing: http://bling.github.io/blog/2016/01/18/why-are-you-changing-gc-cons-threshold/
 (setq gc-cons-threshold 100000000)
-
 (setq inhibit-startup-message t)
 
 
@@ -350,7 +351,6 @@
 (setq
  ;; use gdb-many-windows by default
  gdb-many-windows t
-
  ;; Non-nil means display source file containing the main routine at startup
  gdb-show-main t
  )
