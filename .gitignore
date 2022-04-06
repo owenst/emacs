@@ -1,6 +1,7 @@
 #emacs auto save files:
 *.*~
 \#*#
+.\#
 git_fix_author.sh
 *~
 
