@@ -25,7 +25,16 @@
 ;;         C-M-v scroll other buffer
 ;;         M-m move to beginning of indented region
 ;; Kill chain:   C-k, C-y, M-y
-;; Undo: C-/ or C-x u
+;; Undo: C-/ or C-_ or C-x u
+;;   ** Note: terminal in macOS is VT100 and so can't send C-/
+;;    C-x u: Undo-Tree visualization: undo-tree.el https://www.dr-qubit.org/undo-tree/undo-tree.txt
+;;    q : quit undo tree
+;;    t : time stamps
+;;    d : toggle diff
+;;
+;;
+;;
+;;
 ;; GoTo Line: M-g g LINE or M-g M-g LINE
 ;;      Char M-x goto-char
 ;; Repeat:
