@@ -78,7 +78,7 @@
 ;;   Removes excess whitespace from end of line
 
 ;; Keyboard Macros:
-;;   Define: C-x (
+;;   Define (record): C-x (
 ;;     Do Stuff
 ;;   End:    C-x )
 ;;   Run Macro: C-x e
@@ -96,6 +96,20 @@
 ;;   d mark for deletion
 ;;   x execute
 ;;   ? help
+;;  NEOTREE - Directory Tree: https://github.com/jaypei/emacs-neotree
+;;    n next line ， p previous line。
+;;    RET - open
+;;    U Go up a directory
+;;    g Refresh
+;;    A Maximize/Minimize the NeoTree Window
+;;    H Toggle display hidden files
+;;    C-c C-n Create a file or create a directory if filename ends with a ‘/’
+;;    C-c C-d Delete a file or a directory.
+;;    C-c C-r Rename a file or a directory.
+;;    C-c C-c Change the root directory.
+;;    C-c C-p Copy a file or a directory.
+;;    M-x neotree-dir - show NeoTree window and specify a directory as its root
+;;    M0x neotree-toggle
 ;;  SWOOP - https://github.com/emacsorphanage/helm-swoop
 ;;  Swoop search C-c s
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
@@ -108,7 +122,6 @@
 ;;     C-o : switch between sources when in helm, or set helm-move-to-line-cycle-in-source to nil
 ;;     M-i to interactively change the buffer (from isearch to swoop or during helm)
 ;;   M-., M-, go to def and pop
-;;
 
 
 ;; Find on command line:
@@ -120,6 +133,7 @@
 
 ;; Grep:
 ;;   M-X grep. Can use as rgrep to search recursively (with -r option)
+;;       -> customize 'grep' "C-h-f grep" and add -r or just use rgrep
 ;;   Use like: grep -nH --null -r -e 'foo' .
 ;;     searches for foo recursively starting at this directory
 ;;   -n : line numbers
@@ -213,7 +227,7 @@
 ;;
 ;;   Now uses flx-ido to create fuzzy matching
 
-;; Multiple-cursors: see below for commands
+;; Multiple-cursors: see below for commands (multicursors)
 ;;   C-> to get new cursor
 ;;   C-g to quit
 
@@ -435,15 +449,10 @@
 (package-initialize) ;; You might already have this line
 (when (not package-archive-contents)
   (package-refresh-contents))
-;; ------------------------------------------------------ ;;
+
 ;;      Remove package signature check to prevent hang
 (setq package-check-signature nil)
-;; ------------------------------------------------------ ;;
 
-
-;; Bootstrap use-package
-;;(eval-when-compile
-;;  (require 'use-package))
 
 ;; Bootstrap `use-package'
 ;; https://github.com/jwiegley/use-package
@@ -457,6 +466,11 @@
 ;; Print stack trace on error
 ;; (setq debug-on-error t)
 ;;-----------------------------
+
+;; NeoTree
+(use-package neotree
+  :ensure t
+  )
 
 ;; CMake-Mode
 (use-package cmake-mode
@@ -710,10 +724,11 @@
  '(custom-enabled-themes '(wombat))
  '(fill-column 99)
  '(flymake-start-syntax-check-on-newline nil)
+ '(grep-command "grep --color=auto -rnH --null -e ")
  '(ido-enable-flex-matching t)
  '(menu-bar-mode 1)
  '(package-selected-packages
-   '(jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
+   '(neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
  '(reb-re-syntax 'string)
  '(safe-local-variable-values
    '((cmake-ide-build-dir . "~/radar/build")
