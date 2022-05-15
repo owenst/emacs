@@ -509,8 +509,10 @@
 ;;   Syntax error after sending code for evaluation, code is on elpy-shell.el line 724, but doesn't seem to have an error
 ;;   FIND DEF Go to definition - jedi:setup install server (hack: use C-c . and M-,)
 ;;     May need to first install jedi and then jedi epc server (need virtualenv first). M-x jedi:[re]install-server
-;;     SOLN: 1) downgraded to Jedi 0.17.2 and only run jedi:setup
+;;     SOLN: 1) https://github.com/jorgenschaefer/elpy/issues/1875
+;;             - downgraded to Jedi 0.17.2 and only run jedi:setup
 ;;             - Must do so in rpc-venc: $ source /Users/trevor/.emacs.d/elpy/rpc-venv/bin/activate
+;;             - (rpc-venv) $ pip3 uninstall jedi && pip3 install jedi==0.17.2
 ;;           2) DO NOT start virtual env first - start inside emacs M-x pyvenv-workon
 
 (use-package elpy
@@ -726,6 +728,7 @@
  '(flymake-start-syntax-check-on-newline nil)
  '(grep-command "grep --color=auto -rnH --null -e ")
  '(ido-enable-flex-matching t)
+ '(ido-mode 'both nil (ido))
  '(menu-bar-mode 1)
  '(package-selected-packages
    '(neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
