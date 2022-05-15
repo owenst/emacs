@@ -22,7 +22,7 @@
 ;; Move:   C-f, C-b, C-a, C-e
 ;;         M-f, M-b, M-a, M-e
 ;;         C-M-n C-M-p by s-exp or balanced expression
-;;         C-M-v scroll other buffer
+;;         C-M-v scroll other bufferb
 ;;         M-m move to beginning of indented region
 ;; Kill chain:   C-k, C-y, M-y
 ;; Undo: C-/ or C-_ or C-x u
@@ -467,6 +467,12 @@
 ;; (setq debug-on-error t)
 ;;-----------------------------
 
+;; markdown mode https://jblevins.org/projects/markdown-mode/
+(use-package markdown-mode
+  :ensure t
+  :mode ("README\\.md\\'" . gfm-mode)
+  :init (setq markdown-command "multimarkdown"))
+
 ;; NeoTree
 (use-package neotree
   :ensure t
@@ -731,7 +737,7 @@
  '(ido-mode 'both nil (ido))
  '(menu-bar-mode 1)
  '(package-selected-packages
-   '(neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
+   '(markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
  '(reb-re-syntax 'string)
  '(safe-local-variable-values
    '((cmake-ide-build-dir . "~/radar/build")
