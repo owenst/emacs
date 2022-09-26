@@ -18,6 +18,7 @@ case $OS in
         alias ll='ls -lahF --color=auto'
         alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
         alias spotify="spotify --force-device-scale-factor=2"
+        alias gpumonitor='watch -n 0.5 --color gpustat --color'
         ;;
     *)
 	    echo "Unknown OS"

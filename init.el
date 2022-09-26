@@ -109,7 +109,7 @@
 ;;    C-c C-c Change the root directory.
 ;;    C-c C-p Copy a file or a directory.
 ;;    M-x neotree-dir - show NeoTree window and specify a directory as its root
-;;    M0x neotree-toggle
+;;    M-x neotree-toggle
 ;;  SWOOP - https://github.com/emacsorphanage/helm-swoop
 ;;  Swoop search C-c s
 ;;   C-c s (swoop) interactively search from point and display search in other buffer!!!!
