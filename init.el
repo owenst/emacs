@@ -250,8 +250,15 @@
 ;;  M-x c++-mode
 
 ;; Terminal / Shell
-;;   M-x term
-;;   M-x ansi-term
+;;  M-x shell
+;;    See Mattray.dev for setup
+;;    https://mattray.github.io/2021/05/26/switching-to-zsh.html
+;;    in .zshrc set:
+;;    # emacs M-x shell
+;;    if [[ "dumb" == $TERM ]] ; then ..
+;; Note: iterm2 shell integration messes up emacs prompt -> remove it
+;; Uncomment custom variables at end to stop zsh repeating prompts
+
 ;; Web browser
 ;;   M-x eww
 ;;     l - back
@@ -528,6 +535,7 @@
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   :config
+  (pyvenv-workon 'default)
   ;; (defun elpy-goto-definition-or-rgrep ()
   ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
   ;;   (interactive)
@@ -729,7 +737,11 @@
    [default default default italic underline success warning error])
  '(blink-cursor-mode t)
  '(column-number-mode t)
+ '(comint-process-echoes 0)
  '(custom-enabled-themes '(wombat))
+ '(elpy-rpc-python-command "python3")
+ '(explicit-shell-file-name "/bin/zsh")
+ '(explicit-zsh-args '("--interactive" "--login"))
  '(fill-column 99)
  '(flymake-start-syntax-check-on-newline nil)
  '(grep-command "grep --color=auto -rnH --null -e ")
@@ -738,6 +750,7 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    '(markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
+ '(python-shell-interpreter "python3")
  '(reb-re-syntax 'string)
  '(safe-local-variable-values
    '((cmake-ide-build-dir . "~/radar/build")
