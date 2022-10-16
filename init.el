@@ -251,7 +251,7 @@
 
 ;; Terminal / Shell
 ;;  M-x shell
-;;    See Mattray.dev for setup
+;;    See Matt Ray: Mattray.dev for setup
 ;;    https://mattray.github.io/2021/05/26/switching-to-zsh.html
 ;;    in .zshrc set:
 ;;    # emacs M-x shell
@@ -738,6 +738,7 @@
  '(blink-cursor-mode t)
  '(column-number-mode t)
  '(comint-process-echoes 0)
+ '(compile-command "./floor_materials.sh")
  '(custom-enabled-themes '(wombat))
  '(elpy-rpc-python-command "python3")
  '(explicit-shell-file-name "/bin/zsh")
