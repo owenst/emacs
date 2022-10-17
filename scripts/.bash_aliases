@@ -79,3 +79,4 @@ then
         echo " [$git_color$git_branch${c_reset}]"
     }
 fi
+alias gpumonitor='watch -n 0.5 --color gpustat --color'
