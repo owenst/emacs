@@ -535,7 +535,8 @@
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   :config
-  (pyvenv-workon 'default)
+  (pyvenv-workon 'mttr)
+  ;; (pyvenv-workon 'default);; -> native shell completion doesn't work ( Warning (python): Your 'python-shell-interpreter' doesn't seem to support readline )
   ;; (defun elpy-goto-definition-or-rgrep ()
   ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
   ;;   (interactive)
@@ -741,6 +742,8 @@
  '(compile-command "./floor_materials.sh")
  '(custom-enabled-themes '(wombat))
  '(elpy-rpc-python-command "python3")
+ '(exec-path
+   '("/Users/towens/.virtualenvs/mttr/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-arm64-12" "/Applications/Emacs.app/Contents/MacOS/libexec-arm64-12" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/opt/homebrew/bin"))
  '(explicit-shell-file-name "/bin/zsh")
  '(explicit-zsh-args '("--interactive" "--login"))
  '(fill-column 99)
