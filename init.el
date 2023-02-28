@@ -95,6 +95,8 @@
 ;;   + add dir
 ;;   d mark for deletion
 ;;   x execute
+;;   m mark files for next command
+;;   R to rename marked files or move
 ;;   ? help
 ;;  NEOTREE - Directory Tree: https://github.com/jaypei/emacs-neotree
 ;;    n next line ， p previous line。
@@ -365,6 +367,9 @@
 (setq gc-cons-threshold 100000000)
 (setq inhibit-startup-message t)
 
+;; Set the default paragraph fill level
+;; Make sure this works with Elpy
+(setq-default fill-column 100)
 
 ;; -------------------   setup-general.el  ------------------------------------------
 ;; Compilation - set to call compile automatically
@@ -507,6 +512,8 @@
 ;;     file in project C-c C-f
 ;;     symbom in project C-c C-s
 ;;   Completion M-TAB
+;;   Indent:
+;;     M - -> <- (right left keys)
 ;;   GoTo
 ;;     Def     M-.
 ;;     PopDef  M-*
@@ -751,6 +758,7 @@
  '(grep-command "grep --color=auto -rnH --null -e ")
  '(ido-enable-flex-matching t)
  '(ido-mode 'both nil (ido))
+ '(kill-ring-max 10)
  '(menu-bar-mode 1)
  '(package-selected-packages
    '(markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
