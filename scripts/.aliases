@@ -1,0 +1,22 @@
+echo
+echo ".aliases"
+echo
+
+
+# Aliases
+alias ll='ls -lAh'
+
+# git
+alias ggs="git status"
+alias ggc="git commit -m"
+alias gga="git add"
+alias ggd="git diff"
+
+
+
+if [ $OS == "Darwin" ]; then
+    source $HOME/.mac_aliases
+elif [ $OS == "Linux" ]; then
+    source $HOME/.linux_aliases
+fi
+

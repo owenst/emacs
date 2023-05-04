@@ -1,22 +1,26 @@
 #!/usr/bin/env bash
 
-# run and print commands
+# debug - run and print commands
 # set -x
 
-# exit 0
-
 # ADD ALIASES, FIND BASHRC and ONLY ONCE are inclusion guards
+echo Creating alias file link
+ln -s ~/.emacs.d/scripts/aliases ~/.aliases
+echo
 
 if [ $SHELL = "/bin/zsh" ]
 then
+    echo "Running zsh config!"
     ZSH zsh_config.sh
 elif [ $SHELL = "/bin/bash" ]
 then
+    echo "Running bash config!"
     ./bash_config.sh
 fi
 
-echo "For both Bash and Zsh!"
-
+echo
+echo
+echo
 
 
 

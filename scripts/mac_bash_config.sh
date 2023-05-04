@@ -12,8 +12,8 @@ if ! grep -q "# ADD ALIASES" ~/.bashrc
 then
     echo "Mac - adding to .bashrc"
     echo '# ADD ALIASES'                    >> ~/.bashrc
-    echo 'if [ -f ~/.bash_aliases ]; then ' >> ~/.bashrc
-    echo '    . ~/.bash_aliases'            >> ~/.bashrc
+    echo 'if [ -f ~/.aliases ]; then ' >> ~/.bashrc
+    echo '    . ~/.aliases'            >> ~/.bashrc
     echo 'fi'                               >> ~/.bashrc
 fi
 if ! grep -q "# FIND BASHRC" ~/.bash_profile
