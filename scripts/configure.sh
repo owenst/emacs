@@ -5,7 +5,8 @@
 
 # ADD ALIASES, FIND BASHRC and ONLY ONCE are inclusion guards
 echo Creating alias file link
-ln -s ~/.emacs.d/scripts/aliases ~/.aliases
+ln -s ~/.emacs.d/scripts/.aliases ~/.aliases
+
 echo
 
 if [ $SHELL = "/bin/zsh" ]

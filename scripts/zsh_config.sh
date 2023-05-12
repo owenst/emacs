@@ -30,7 +30,7 @@ then
         echo "adding my aliases to .zshrc"
         echo ''                                 >> ~/.zshrc
         echo '# ADD ALIASES'                    >> ~/.zshrc
-        echo 'echo alias source'                >> ~/.zshrc
+        echo 'echo sourcing .aliases in .zshrc' >> ~/.zshrc
         echo 'source $HOME/.aliases'            >> ~/.zshrc
     fi
 else
