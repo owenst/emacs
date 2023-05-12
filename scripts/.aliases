@@ -14,9 +14,23 @@ alias ggd="git diff"
 
 
 
-if [ $OS == "Darwin" ]; then
-    source $HOME/.mac_aliases
-elif [ $OS == "Linux" ]; then
-    source $HOME/.linux_aliases
+if [[ `uname` == "Darwin" ]]; then
+    echo "Setting mac specific aliases: emacs, atmux(-ports)"
+
+    alias emacs="/Applications/Emacs.app/Contents/MacOS/Emacs"
+    alias atmux="autossh -M 0 -t \"towens\" \"tmux -CC new-session -AD -s main\""
+    alias atmux-ports="autossh -M 0 -L 6006:localhost:6006 -L 8888:localhost:8888 -t \"towens\" \"tmux -CC new-session -AD -s main\""
+    #source $HOME/.mac_aliases
+elif [[ `uname` == "Linux" ]]; then
+    echo "Setting Linux specific aliases: "
+    echo "  dirs, open, ll, batt, spotify, gpumonitor"
+
+    alias dirs='dirs -v'
+    alias open=xdg-open
+    alias ll='ls -lahF --color=auto'
+    alias batt="upower -i /org/freedesktop/UPower/devices/battery_BAT0 && acpi -bi"
+    alias spotify="spotify --force-device-scale-factor=2"
+    alias gpumonitor='watch -n 0.5 --color gpustat --color'
+    #source $HOME/.linux_aliases
 fi
 
