@@ -22,7 +22,7 @@
 ;; Move:   C-f, C-b, C-a, C-e
 ;;         M-f, M-b, M-a, M-e
 ;;         C-M-n C-M-p by s-exp or balanced expression
-;;         C-M-v scroll other bufferb
+;;         C-M-v scroll other buffer
 ;;         M-m move to beginning of indented region
 ;; Kill chain:   C-k, C-y, M-y
 ;; Undo: C-/ or C-_ or C-x u
@@ -149,7 +149,7 @@
 ;;  See also: rgrep for separate prompts
 
 ;; Buffer Menu:
-;;   WITH HELM: M-x list-buffers
+;;   WITH HELM: M-x list-buffers or M-x ibuffers for traditional view
 ;;     C-c d: delete buffer
 ;;   NO HELM: C-x C-b: Dired like buffer menu
 ;;   Press:
@@ -542,7 +542,7 @@
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   :config
-  (pyvenv-workon 'mttr)
+  (pyvenv-workon 'default)
   ;; (pyvenv-workon 'default);; -> native shell completion doesn't work ( Warning (python): Your 'python-shell-interpreter' doesn't seem to support readline )
   ;; (defun elpy-goto-definition-or-rgrep ()
   ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
