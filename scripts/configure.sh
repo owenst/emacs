@@ -39,7 +39,7 @@ git config user.email "164865+owenst@users.noreply.github.com"
 
 echo
 echo "Printing git config"
-echo "run git config -l to see git config"
+echo ">> git config -l"
 echo
 git config -l
 echo
