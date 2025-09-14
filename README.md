@@ -103,5 +103,5 @@ fi
 Git Change author:
 * see `git_fix_author.sh` script -> modify to fix commit author
 ### Set up SSH key
-* Permission denied: [Error: Permission denied (publickey)] (https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey]
-* [Add SSH key to git] (https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+* [Error: Permission denied - publickey](https://docs.github.com/en/authentication/troubleshooting-ssh/error-permission-denied-publickey)
+* [Add SSH key to git](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
