@@ -20,3 +20,7 @@ projectile.cache
 
 places
 session.*
+
+.mc-lists.el
+elpy/
+
