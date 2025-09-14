@@ -167,6 +167,7 @@
 ;;    C-h a PATTERN: apropos search for PATTERN
 ;;    C-h k KEYSTROKE: describes keystroke
 ;;    C-h m  :  help on current mode
+;;    C-h P  : package info
 ;;    View faces under point: C-u C-x =
 ;;    Describe Variable: C-h v
 ;;      C-h v load-path : view info on load path
@@ -179,7 +180,7 @@
 ;;   Save modified: C-x-s
 ;;   Autosave: #filename. Recover: M-x recover-file
 ;;  Reread from source:
-;;   Revert Buffer when changed elsewhere: M-x revert-buffer (reload)
+;;   Revert Buffer when changed elsewhere: M-x revert-buffer (reload) (s-u)
 ;;   Global Auto M-x global-auto-revert-buffer
 ;;   C-x C-r : find recent (uses recentf)
 ;; Remote files: https://www.gnu.org/software/emacs/manual/html_node/emacs/Remote-Files.html
@@ -353,6 +354,10 @@
 (setq-default indent-tabs-mode nil)
 ;; set appearance of a tab that is represented by 4 spaces
 (setq-default tab-width 4)
+
+
+;; auto revert or refresh file when change detected
+(global-auto-revert-mode 1)
 
 ;; Need to rebind tab-to-tab-stop
 ;;(global-set-key (kbd "C-t") 'tab-to-tab-stop)
@@ -542,7 +547,7 @@
   (setq python-shell-interpreter "python3")
   (setq python-shell-interpreter-args "-i")
   :config
-  (pyvenv-workon 'default)
+  (pyvenv-workon 'venv)
   ;; (pyvenv-workon 'default);; -> native shell completion doesn't work ( Warning (python): Your 'python-shell-interpreter' doesn't seem to support readline )
   ;; (defun elpy-goto-definition-or-rgrep ()
   ;;   "Go to the definition of the symbol at point, if found. Otherwise, run `elpy-rgrep-symbol'."
@@ -748,7 +753,7 @@
  '(comint-process-echoes 0)
  '(compile-command "./floor_materials.sh")
  '(custom-enabled-themes '(wombat))
- '(elpy-rpc-python-command "python3")
+ '(elpy-rpc-virtualenv-path "~/.virtualenvs/venv")
  '(exec-path
    '("/Users/towens/.virtualenvs/mttr/bin" "/usr/bin" "/bin" "/usr/sbin" "/sbin" "/Applications/Emacs.app/Contents/MacOS/bin-arm64-12" "/Applications/Emacs.app/Contents/MacOS/libexec-arm64-12" "/Applications/Emacs.app/Contents/MacOS/libexec" "/Applications/Emacs.app/Contents/MacOS/bin" "/opt/homebrew/bin"))
  '(explicit-shell-file-name "/bin/zsh")
@@ -762,7 +767,6 @@
  '(menu-bar-mode 1)
  '(package-selected-packages
    '(markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
- '(python-shell-interpreter "python3")
  '(reb-re-syntax 'string)
  '(safe-local-variable-values
    '((cmake-ide-build-dir . "~/radar/build")
