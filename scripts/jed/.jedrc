@@ -1,0 +1,6 @@
+% Remove Alt-F Menu opening behavior:
+% jed my_file.sh -f "evalfile(\"emacs\")"
+% Or use -a /path/to/emacs.sl as a flag when starting
+% Or inside jed Ctrl-X ESC then this:
+() = evalfile ("emacs");
+
