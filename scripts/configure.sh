@@ -3,16 +3,23 @@
 # debug - run and print commands
 # set -x
 
+# run from the directory this script lives in so relative paths work
+cd "$(dirname "$0")"
+
 # ADD ALIASES, FIND BASHRC and ONLY ONCE are inclusion guards
 echo Creating alias file link
-ln -s ~/.emacs.d/scripts/.aliases ~/.aliases
+./link-file.sh .aliases
+
+echo Creating jed and nano config links
+./link-file.sh .jedrc
+./link-file.sh .nanorc
 
 echo
 
 if [ $SHELL = "/bin/zsh" ]
 then
     echo "Running zsh config!"
-    ZSH zsh_config.sh
+    zsh zsh_config.sh
 elif [ $SHELL = "/bin/bash" ]
 then
     echo "Running bash config!"
