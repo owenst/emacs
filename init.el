@@ -488,7 +488,9 @@
 (use-package markdown-mode
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown"))
+  :init (setq markdown-command "multimarkdown")
+  :bind (:map markdown-mode-map
+              ("C-c C-e" . markdown-do)))
 
 ;; NeoTree
 (use-package neotree
@@ -544,7 +546,7 @@
   :ensure t
   :init
   (elpy-enable)
-  (setq python-shell-interpreter "python3")
+  (setq python-shell-interpreter "python")
   (setq python-shell-interpreter-args "-i")
   :config
   (pyvenv-workon 'venv)
@@ -766,7 +768,7 @@
  '(kill-ring-max 10)
  '(menu-bar-mode 1)
  '(package-selected-packages
-   '(markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
+   '(elpy markdown-mode neotree jedi virtualenv company-c-headers dockerfile-mode cuda-mode flymake-go sr-speedbar counsel swiper-helm swiper volatile-highlights markdown-mode+))
  '(reb-re-syntax 'string)
  '(safe-local-variable-values
    '((cmake-ide-build-dir . "~/radar/build")
